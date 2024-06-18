@@ -1,0 +1,192 @@
+{
+  "weekly_workout_plan": {
+    "Monday": {
+      "muscle_groups": ["Chest", "Triceps"],
+      "exercises": [
+        {
+          "name": "Bench Press (Barbell)",
+          "sets": 4,
+          "reps": "8-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Incline Dumbbell Press",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Dumbbell Flyes",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Tricep Dips",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Tricep Overhead Extension (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Tricep Kickbacks (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        }
+      ]
+    },
+    "Tuesday": {
+      "muscle_groups": ["Back", "Biceps"],
+      "exercises": [
+        {
+          "name": "Deadlifts (Barbell)",
+          "sets": 4,
+          "reps": "8-10",
+          "rest": "90 seconds"
+        },
+        {
+          "name": "Bent Over Rows (Barbell)",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Single Arm Dumbbell Rows",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Bicep Curls (Barbell)",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Hammer Curls (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Concentration Curls (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        }
+      ]
+    },
+    "Wednesday": {
+      "muscle_groups": ["Rest or Active Recovery"],
+      "exercises": [
+        {
+          "name": "Light cardio, stretching, or yoga"
+        }
+      ]
+    },
+    "Thursday": {
+      "muscle_groups": ["Legs"],
+      "exercises": [
+        {
+          "name": "Squats (Barbell)",
+          "sets": 4,
+          "reps": "8-12",
+          "rest": "90 seconds"
+        },
+        {
+          "name": "Lunges (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15 per leg",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Romanian Deadlifts (Barbell)",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Calf Raises (Dumbbell)",
+          "sets": 3,
+          "reps": "15-20",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Leg Press (Optional, if equipment available)",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        }
+      ]
+    },
+    "Friday": {
+      "muscle_groups": ["Shoulders", "Abs"],
+      "exercises": [
+        {
+          "name": "Overhead Press (Barbell)",
+          "sets": 4,
+          "reps": "8-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Lateral Raises (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Front Raises (Dumbbell)",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Arnold Press (Dumbbell)",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60-90 seconds"
+        },
+        {
+          "name": "Plank",
+          "sets": 3,
+          "duration": "1 minute",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Russian Twists (Dumbbell)",
+          "sets": 3,
+          "reps": "20 twists",
+          "rest": "60 seconds"
+        },
+        {
+          "name": "Leg Raises",
+          "sets": 3,
+          "reps": "15-20",
+          "rest": "60 seconds"
+        }
+      ]
+    },
+    "Saturday": {
+      "muscle_groups": ["Full Body or Optional Cardio"],
+      "exercises": [
+        {
+          "name": "Optional full-body workout focusing on compound movements or a cardio session for active recovery"
+        }
+      ]
+    },
+    "Sunday": {
+      "muscle_groups": ["Rest"],
+      "exercises": [
+        {
+          "name": "Complete rest day for full recovery"
+        }
+      ]
+    }
+  }
+}

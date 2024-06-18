@@ -1,0 +1,1 @@
+export { WorkoutPlan } from "./WorkoutPlan";
