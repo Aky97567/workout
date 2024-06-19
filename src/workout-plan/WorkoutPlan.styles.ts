@@ -18,9 +18,11 @@ export const Container = styled.div`
 export const Picker = styled.select`
   padding: 10px;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
   cursor: pointer;
-  color: #f8f8f8;
+  color: ${COLOR_PRIMARY};
   background-color: #333;
   border: 1px solid #ccc;
   border-radius: 5px;
