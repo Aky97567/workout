@@ -148,25 +148,29 @@
           "name": "Overhead Press (Barbell)",
           "sets": 4,
           "reps": "8-12",
-          "rest": "60-90 seconds"
+          "rest": "60-90 seconds",
+          "imageKey": "overheadPress"
         },
         {
           "name": "Lateral Raises (Dumbbell)",
           "sets": 3,
           "reps": "12-15",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "imageKey": "latRaises"
         },
         {
           "name": "Front Raises (Dumbbell)",
           "sets": 3,
           "reps": "12-15",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "imageKey": "frontRaises"
         },
         {
           "name": "Arnold Press (Dumbbell)",
           "sets": 3,
           "reps": "10-12",
-          "rest": "60-90 seconds"
+          "rest": "60-90 seconds",
+          "imageKey": "arnoldPress"
         },
         {
           "name": "Plank",
@@ -178,13 +182,15 @@
           "name": "Russian Twists (Dumbbell)",
           "sets": 3,
           "reps": "20 twists",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "imageKey": "dumbellRussianTwist"
         },
         {
           "name": "Leg Raises",
           "sets": 3,
           "reps": "15-20",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "imageKey": "legRaises"
         }
       ]
     },
