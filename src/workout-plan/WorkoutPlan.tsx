@@ -53,7 +53,7 @@ export const WorkoutPlan: React.FC = () => {
         ))}
       </Picker>
       <Title>{selectedDay}'s Workout</Title>
-      <p>Muscle Groups: {plan.muscle_groups.join(", ")}</p>
+      <span>Muscle Groups: {plan.muscle_groups.join(", ")}</span>
       <Workout>
         {plan.exercises.map((exercise, index) => (
           <Exercise key={index}>

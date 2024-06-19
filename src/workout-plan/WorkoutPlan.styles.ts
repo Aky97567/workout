@@ -1,19 +1,29 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  padding: 20px;
+  padding: 10px;
   max-width: 600px;
   margin: 0 auto;
 `;
 
 export const Picker = styled.select`
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 16px;
 `;
 
 export const Workout = styled.div`
   margin-top: 20px;
+  overflow-y: scroll;
+  max-height: 60vh;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  ::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
 `;
 
 export const Exercise = styled.div`
@@ -26,5 +36,5 @@ export const Exercise = styled.div`
 
 export const Title = styled.h2`
   font-size: 20px;
-  margin-bottom: 10px;
+  margin: 0 0 10px 0;
 `;
