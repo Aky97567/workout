@@ -2,7 +2,6 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import workoutData from "./workoutData.json";
 import {
   Container,
-  Divider,
   Exercise,
   Picker,
   Title,
@@ -57,19 +56,16 @@ export const WorkoutPlan: React.FC = () => {
       <p>Muscle Groups: {plan.muscle_groups.join(", ")}</p>
       <Workout>
         {plan.exercises.map((exercise, index) => (
-          <>
-            {index !== 0 && <Divider />}
-            <Exercise key={index}>
-              <strong>{exercise.name}</strong>
-              {exercise.sets && (
-                <p>
-                  Sets: {exercise.sets}, Reps: {exercise.reps}, Rest:{" "}
-                  {exercise.rest}
-                </p>
-              )}
-              {exercise.duration && <p>Duration: {exercise.duration}</p>}
-            </Exercise>
-          </>
+          <Exercise key={index}>
+            <strong>{exercise.name}</strong>
+            {exercise.sets && (
+              <p>
+                Sets: {exercise.sets}, Reps: {exercise.reps}, Rest:{" "}
+                {exercise.rest}
+              </p>
+            )}
+            {exercise.duration && <p>Duration: {exercise.duration}</p>}
+          </Exercise>
         ))}
       </Workout>
     </Container>
