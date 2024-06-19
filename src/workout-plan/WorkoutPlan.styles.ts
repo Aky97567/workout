@@ -59,6 +59,7 @@ export const Exercise = styled.div`
   border-radius: 5px;
   padding: 5px 10px 0 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 `;
 
 export const Title = styled.h2`
@@ -69,4 +70,11 @@ export const Title = styled.h2`
 export const ExerciseTitle = styled.div<{ needPadding: boolean }>`
   ${({ needPadding }) => needPadding && `padding: 10px 0 10px 0;`}
   font-weight: bold;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+  border-radius: 5px;
 `;

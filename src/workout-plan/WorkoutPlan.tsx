@@ -7,7 +7,9 @@ import {
   Picker,
   Title,
   Workout,
+  Image,
 } from "./WorkoutPlan.styles";
+import { exerciseImages } from "./images";
 
 interface Exercise {
   name: string;
@@ -15,6 +17,7 @@ interface Exercise {
   reps?: string;
   rest?: string;
   duration?: string;
+  imageKey?: string;
 }
 
 interface WorkoutPlan {
@@ -35,14 +38,25 @@ export const WorkoutPlan: React.FC = () => {
   const [plan, setPlan] = useState<WorkoutPlan | null>(
     workoutDataTyped.weekly_workout_plan["Monday"] || null
   );
+  const [visibleImages, setVisibleImages] = useState<{
+    [key: number]: boolean;
+  }>({});
 
   useEffect(() => {
     const newPlan = workoutDataTyped.weekly_workout_plan[selectedDay];
     setPlan(newPlan ? newPlan : null);
+    setVisibleImages({}); // Reset visible images when the day changes
   }, [selectedDay]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedDay(e.target.value);
+  };
+
+  const toggleImageVisibility = (index: number) => {
+    setVisibleImages((prevVisibleImages) => ({
+      ...prevVisibleImages,
+      [index]: !prevVisibleImages[index],
+    }));
   };
 
   return (
@@ -60,7 +74,10 @@ export const WorkoutPlan: React.FC = () => {
           <span>Muscle Groups: {plan.muscle_groups.join(", ")}</span>
           <Workout>
             {plan.exercises.map((exercise, index) => (
-              <Exercise key={index}>
+              <Exercise
+                key={index}
+                onClick={() => toggleImageVisibility(index)}
+              >
                 <ExerciseTitle needPadding={!exercise.sets}>
                   {exercise.name}
                 </ExerciseTitle>
@@ -71,6 +88,14 @@ export const WorkoutPlan: React.FC = () => {
                   </p>
                 )}
                 {exercise.duration && <p>Duration: {exercise.duration}</p>}
+                {visibleImages[index] &&
+                  exercise.imageKey &&
+                  exerciseImages[exercise.imageKey] && (
+                    <Image
+                      src={exerciseImages[exercise.imageKey]}
+                      alt={exercise.name}
+                    />
+                  )}
               </Exercise>
             ))}
           </Workout>
