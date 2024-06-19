@@ -32,12 +32,13 @@ const workoutDataTyped: WorkoutData = workoutData;
 
 export const WorkoutPlan: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<string>("Monday");
-  const [plan, setPlan] = useState<WorkoutPlan>(
-    workoutDataTyped.weekly_workout_plan["Monday"]
+  const [plan, setPlan] = useState<WorkoutPlan | null>(
+    workoutDataTyped.weekly_workout_plan["Monday"] || null
   );
 
   useEffect(() => {
-    setPlan(workoutDataTyped.weekly_workout_plan[selectedDay]);
+    const newPlan = workoutDataTyped.weekly_workout_plan[selectedDay];
+    setPlan(newPlan ? newPlan : null);
   }, [selectedDay]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -54,25 +55,29 @@ export const WorkoutPlan: React.FC = () => {
         ))}
       </Picker>
       <Title>{selectedDay}'s Workout</Title>
-      <span>Muscle Groups: {plan.muscle_groups.join(", ")}</span>
-      <Workout>
-        {plan.exercises.map((exercise, index) => (
-          <Exercise key={index}>
-            <ExerciseTitle needPadding={!exercise.sets}>
-              {exercise.name}
-            </ExerciseTitle>
-            {exercise.sets && (
-              <p>
-                Sets: {exercise.sets}, Reps: {exercise.reps}, Rest:{" "}
-                {exercise.rest}
-              </p>
-            )}
-            {exercise.duration && <p>Duration: {exercise.duration}</p>}
-          </Exercise>
-        ))}
-      </Workout>
+      {plan ? (
+        <>
+          <span>Muscle Groups: {plan.muscle_groups.join(", ")}</span>
+          <Workout>
+            {plan.exercises.map((exercise, index) => (
+              <Exercise key={index}>
+                <ExerciseTitle needPadding={!exercise.sets}>
+                  {exercise.name}
+                </ExerciseTitle>
+                {exercise.sets && (
+                  <p>
+                    Sets: {exercise.sets}, Reps: {exercise.reps}, Rest:{" "}
+                    {exercise.rest}
+                  </p>
+                )}
+                {exercise.duration && <p>Duration: {exercise.duration}</p>}
+              </Exercise>
+            ))}
+          </Workout>
+        </>
+      ) : (
+        <p>No workout plan available for this day.</p>
+      )}
     </Container>
   );
 };
-
-export default WorkoutPlan;

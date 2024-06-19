@@ -18,11 +18,22 @@ export const Picker = styled.select`
   padding: 10px;
   margin-bottom: 10px;
   font-size: 16px;
+  cursor: pointer;
+  color: #f8f8f8;
+  background-color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
+    color: #333;
+  }
 `;
 
 export const Workout = styled.div`
   margin-top: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 60vh;
   border: 5px solid #0070f3;
   border-radius: 5px;
@@ -47,7 +58,7 @@ export const Exercise = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px 10px 0 10px;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const Title = styled.h2`
