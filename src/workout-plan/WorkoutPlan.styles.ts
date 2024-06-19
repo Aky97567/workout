@@ -43,7 +43,7 @@ export const MuscleGroup = styled.span`
 export const Workout = styled.div`
   margin-top: 20px;
   overflow-y: auto;
-  max-height: 75vh;
+  max-height: 70vh;
   border: 5px solid ${COLOR_PRIMARY};
   border-radius: 5px;
   padding: 10px;
