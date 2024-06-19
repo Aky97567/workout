@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 import { mediaQuery } from "../theme";
 import { COLOR_PRIMARY } from "../theme/colors";
 
-export const Container = styled.div`
+export const Container = styled.div<{ height: number }>`
   padding: 10px;
   margin: 0 auto;
   max-width: 600px;
+  max-height: ${({ height }) => `${height}px`};
 
   ${mediaQuery("m")} {
     max-width: max-content;
@@ -17,7 +18,7 @@ export const Container = styled.div`
 
 export const Picker = styled.select`
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 0 auto 10px auto;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -43,10 +44,10 @@ export const MuscleGroup = styled.span`
 export const Workout = styled.div`
   margin-top: 20px;
   overflow-y: auto;
-  max-height: 70vh;
   border: 5px solid ${COLOR_PRIMARY};
   border-radius: 5px;
   padding: 10px;
+  flex-grow: 1;
 
   ${mediaQuery("m")} {
     max-height: max-content;

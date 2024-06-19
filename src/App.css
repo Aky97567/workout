@@ -1,7 +1,9 @@
 #root {
   max-width: 1280px;
+  margin: 0 auto;
   text-align: center;
   align-self: flex-start;
+  --vh: 100%;
 }
 
 .logo {

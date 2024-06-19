@@ -10,6 +10,7 @@ import {
   MuscleGroup,
 } from "./WorkoutPlan.styles";
 import { exerciseImages } from "./images";
+import { useWindowHeight } from "../hooks";
 
 interface Exercise {
   name: string;
@@ -42,6 +43,8 @@ export const WorkoutPlan: React.FC = () => {
     [key: number]: boolean;
   }>({});
 
+  const viewHeight = useWindowHeight();
+
   useEffect(() => {
     const newPlan = workoutDataTyped.weekly_workout_plan[selectedDay];
     setPlan(newPlan ? newPlan : null);
@@ -60,7 +63,7 @@ export const WorkoutPlan: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container height={viewHeight}>
       <Picker value={selectedDay} onChange={handleChange}>
         {Object.keys(workoutDataTyped.weekly_workout_plan).map((day) => (
           <option key={day} value={day}>
