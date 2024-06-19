@@ -3,6 +3,7 @@ import workoutData from "./workoutData.json";
 import {
   Container,
   Exercise,
+  ExerciseTitle,
   Picker,
   Title,
   Workout,
@@ -57,7 +58,9 @@ export const WorkoutPlan: React.FC = () => {
       <Workout>
         {plan.exercises.map((exercise, index) => (
           <Exercise key={index}>
-            <strong>{exercise.name}</strong>
+            <ExerciseTitle needPadding={!exercise.sets}>
+              {exercise.name}
+            </ExerciseTitle>
             {exercise.sets && (
               <p>
                 Sets: {exercise.sets}, Reps: {exercise.reps}, Rest:{" "}
