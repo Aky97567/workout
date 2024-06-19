@@ -14,6 +14,8 @@ export const Picker = styled.select`
 
 export const Workout = styled.div`
   margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 `;
 
 export const Exercise = styled.div`
@@ -23,4 +25,12 @@ export const Exercise = styled.div`
 export const Title = styled.h2`
   font-size: 20px;
   margin-bottom: 10px;
+`;
+
+export const Divider = styled.span`
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 20px 0;
 `;
