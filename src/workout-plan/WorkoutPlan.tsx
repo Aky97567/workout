@@ -1,7 +1,12 @@
-// src/components/WorkoutPlan.tsx
 import React, { useState, useEffect, ChangeEvent } from "react";
-import styled from "@emotion/styled";
 import workoutData from "./workoutData.json";
+import {
+  Container,
+  Exercise,
+  Picker,
+  Title,
+  Workout,
+} from "./WorkoutPlan.styles";
 
 interface Exercise {
   name: string;
@@ -21,31 +26,6 @@ interface WorkoutData {
     [key: string]: WorkoutPlan;
   };
 }
-
-const Container = styled.div`
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const Picker = styled.select`
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
-`;
-
-const Workout = styled.div`
-  margin-top: 20px;
-`;
-
-const Exercise = styled.div`
-  margin-bottom: 15px;
-`;
-
-const Title = styled.h2`
-  font-size: 20px;
-  margin-bottom: 10px;
-`;
 
 const workoutDataTyped: WorkoutData = workoutData;
 
