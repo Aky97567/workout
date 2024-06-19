@@ -109,25 +109,29 @@
           "name": "Squats (Barbell)",
           "sets": 4,
           "reps": "8-12",
-          "rest": "90 seconds"
+          "rest": "90 seconds",
+          "imageKey": "squats"
         },
         {
           "name": "Lunges (Dumbbell)",
           "sets": 3,
           "reps": "12-15 per leg",
-          "rest": "60-90 seconds"
+          "rest": "60-90 seconds",
+          "imageKey": "lunges"
         },
         {
           "name": "Romanian Deadlifts (Barbell)",
           "sets": 3,
           "reps": "10-12",
-          "rest": "60-90 seconds"
+          "rest": "60-90 seconds",
+          "imageKey": "rdl"
         },
         {
           "name": "Calf Raises (Dumbbell)",
           "sets": 3,
           "reps": "15-20",
-          "rest": "60 seconds"
+          "rest": "60 seconds",
+          "imageKey": "calfRaise"
         },
         {
           "name": "Leg Press (Optional, if equipment available)",
