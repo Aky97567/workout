@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { mediaQuery } from "../theme";
+import { COLOR_PRIMARY } from "../theme/colors";
 
 export const Container = styled.div`
   padding: 10px;
@@ -8,7 +9,7 @@ export const Container = styled.div`
 
   ${mediaQuery("m")} {
     max-width: max-content;
-    border: 5px solid #0070f3;
+    border: 5px solid ${COLOR_PRIMARY};
     border-radius: 5px;
     margin-top: 20px;
   }
@@ -31,11 +32,17 @@ export const Picker = styled.select`
   }
 `;
 
+export const MuscleGroup = styled.span`
+  font-weight: bold;
+  color: ${COLOR_PRIMARY};
+  font-size: 24px;
+`;
+
 export const Workout = styled.div`
   margin-top: 20px;
   overflow-y: auto;
   max-height: 60vh;
-  border: 5px solid #0070f3;
+  border: 5px solid ${COLOR_PRIMARY};
   border-radius: 5px;
   padding: 10px;
 
@@ -60,11 +67,6 @@ export const Exercise = styled.div`
   padding: 5px 10px 0 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-`;
-
-export const Title = styled.h2`
-  font-size: 20px;
-  margin: 0 0 10px 0;
 `;
 
 export const ExerciseTitle = styled.div<{ needPadding: boolean }>`

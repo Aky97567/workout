@@ -5,9 +5,9 @@ import {
   Exercise,
   ExerciseTitle,
   Picker,
-  Title,
   Workout,
   Image,
+  MuscleGroup,
 } from "./WorkoutPlan.styles";
 import { exerciseImages } from "./images";
 
@@ -68,10 +68,10 @@ export const WorkoutPlan: React.FC = () => {
           </option>
         ))}
       </Picker>
-      <Title>{selectedDay}'s Workout</Title>
+      <br />
       {plan ? (
         <>
-          <span>Muscle Groups: {plan.muscle_groups.join(", ")}</span>
+          <MuscleGroup>{plan.muscle_groups.join(", ")}</MuscleGroup>
           <Workout>
             {plan.exercises.map((exercise, index) => (
               <Exercise
