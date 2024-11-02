@@ -10,10 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@firebase/app": "^0.10.15",
+    "@firebase/auth": "^1.8.0",
+    "@firebase/firestore": "^4.7.4",
+    "date-fns": "^4.1.0",
+    "firebase": "^11.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-day-picker": "^9.2.1",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.27.0",
+    "recharts": "^2.13.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
