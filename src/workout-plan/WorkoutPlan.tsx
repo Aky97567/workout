@@ -34,10 +34,28 @@ interface WorkoutData {
 
 const workoutDataTyped: WorkoutData = workoutData;
 
+const getCurrentDayName = (): string => {
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const currentDay = days[new Date().getDay()];
+
+  // Check if the current day exists in the workout plan
+  return workoutDataTyped.weekly_workout_plan[currentDay]
+    ? currentDay
+    : Object.keys(workoutDataTyped.weekly_workout_plan)[0]; // Fallback to first available day
+};
+
 export const WorkoutPlan: React.FC = () => {
-  const [selectedDay, setSelectedDay] = useState<string>("Monday");
+  const [selectedDay, setSelectedDay] = useState<string>(getCurrentDayName());
   const [plan, setPlan] = useState<WorkoutPlan | null>(
-    workoutDataTyped.weekly_workout_plan["Monday"] || null
+    workoutDataTyped.weekly_workout_plan[getCurrentDayName()] || null
   );
   const [visibleImages, setVisibleImages] = useState<{
     [key: number]: boolean;
