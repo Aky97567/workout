@@ -1,6 +1,6 @@
 {
   "weekly_workout_plan": {
-    "Monday": {
+    "Saturday": {
       "muscle_groups": ["Chest", "Triceps"],
       "exercises": [
         {
@@ -47,7 +47,7 @@
         }
       ]
     },
-    "Tuesday": {
+    "Sunday": {
       "muscle_groups": ["Back", "Biceps"],
       "exercises": [
         {
@@ -94,7 +94,7 @@
         }
       ]
     },
-    "Wednesday": {
+    "Monday": {
       "muscle_groups": ["Rest or Active Recovery"],
       "exercises": [
         {
@@ -102,7 +102,7 @@
         }
       ]
     },
-    "Thursday": {
+    "Tuesday": {
       "muscle_groups": ["Legs"],
       "exercises": [
         {
@@ -194,7 +194,7 @@
         }
       ]
     },
-    "Saturday": {
+    "Thursday": {
       "muscle_groups": ["Full Body or Optional Cardio"],
       "exercises": [
         {
@@ -202,7 +202,7 @@
         }
       ]
     },
-    "Sunday": {
+    "Wednesday": {
       "muscle_groups": ["Rest"],
       "exercises": [
         {
