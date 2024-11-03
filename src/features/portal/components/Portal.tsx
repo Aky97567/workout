@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Login } from "../../auth";
 import { WorkoutLogger } from "../../workout-logger";
 import { DailyStatsLogger } from "../../stats-logger";
-import { Dashboard } from "../../dashboard/Dashboard";
+import { Dashboard } from "../../dashboard";
 import { useAuth } from "../../auth";
 
 type View = "dashboard" | "workout-logger" | "stats-logger";

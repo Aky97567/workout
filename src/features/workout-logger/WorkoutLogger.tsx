@@ -60,12 +60,14 @@ const Button = styled.button`
 `;
 
 const workoutTypes: Record<WorkoutType, string> = {
-  gym: "Gym Session",
-  home: "Home Workout",
+  gym: "Gym Sesh",
+  pilates: "Pilates",
   sports: "Sports Game/Match",
   swimming: "Swimming Session",
   fitness_class: "Fitness Class",
-  yoga_pilates: "Yoga/Pilates",
+  yoga: "Yoga",
+  cycling: "Cycling",
+  running: "Running",
 };
 
 export const WorkoutLogger = () => {
@@ -79,11 +81,13 @@ export const WorkoutLogger = () => {
 
     const pointsMap: Record<WorkoutType, number> = {
       gym: 3,
-      home: 2,
+      pilates: 3,
       sports: 3,
       swimming: 3,
       fitness_class: 3,
-      yoga_pilates: 2,
+      yoga: 2,
+      cycling: 2,
+      running: 1,
     };
 
     return pointsMap[type];

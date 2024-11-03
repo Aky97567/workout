@@ -10,7 +10,13 @@ import {
 } from "firebase/firestore";
 import { startOfMonth, endOfMonth, eachDayOfInterval, format } from "date-fns";
 import { db } from "../../../shared";
-import type { DashboardData, UserStats, MonthlyStats } from "../types";
+import type {
+  DashboardData,
+  UserStats,
+  DailyStats,
+  WorkoutLog,
+} from "../types";
+import { getAuth } from "@firebase/auth";
 
 export const useDashboardStats = (selectedDate: Date) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,26 +31,55 @@ export const useDashboardStats = (selectedDate: Date) => {
       setError(null);
 
       try {
-        // Get start and end of selected month
+        const auth = getAuth();
+        const currentUserId = auth.currentUser?.uid;
+        console.log("Current user:", currentUserId);
+
+        if (!currentUserId) {
+          throw new Error("No authenticated user");
+        }
+
+        // Get the list of users from userList document
+        const userListDoc = await getDoc(doc(db, "userList", "all"));
+        if (!userListDoc.exists()) {
+          throw new Error("User list not found");
+        }
+
+        const usersRaw = userListDoc.data().users as {
+          id: string;
+          name: string;
+        }[];
+        console.log("Found user IDs:", usersRaw);
+
         const monthStart = startOfMonth(selectedDate);
         const monthEnd = endOfMonth(selectedDate);
+        console.log("Fetching data for:", {
+          monthStart: format(monthStart, "yyyy-MM-dd"),
+          monthEnd: format(monthEnd, "yyyy-MM-dd"),
+        });
 
-        // Fetch all users
-        const usersSnapshot = await getDocs(collection(db, "users"));
-        const users = usersSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
+        // Create user objects
+        const users = usersRaw.map((user) => ({
+          id: user.id,
+          email:
+            user.id === currentUserId ? auth.currentUser?.email || "" : user.id,
+          name: user.name ? user.name || "" : user.id,
         }));
 
         const userStatsPromises = users.map(async (user) => {
           // Fetch daily stats for the month
+          console.log("User ID type:", typeof user.id); // Should log "string"
+          console.log("User ID :", user.id);
           const dailyStatsQuery = query(
             collection(db, "users", user.id, "dailyStats"),
             where("date", ">=", format(monthStart, "yyyy-MM-dd")),
             where("date", "<=", format(monthEnd, "yyyy-MM-dd"))
           );
           const dailyStatsSnapshot = await getDocs(dailyStatsQuery);
-          const dailyStats = dailyStatsSnapshot.docs.map((doc) => doc.data());
+          const dailyStats = dailyStatsSnapshot.docs.map(
+            (doc) => doc.data() as DailyStats
+          );
+          console.log(`Daily stats for user ${user.id}:`, dailyStats);
 
           // Fetch workout logs for the month
           const workoutLogsQuery = query(
@@ -53,23 +88,24 @@ export const useDashboardStats = (selectedDate: Date) => {
             where("date", "<=", monthEnd)
           );
           const workoutLogsSnapshot = await getDocs(workoutLogsQuery);
-          const workoutLogs = workoutLogsSnapshot.docs.map((doc) => doc.data());
+          const workoutLogs = workoutLogsSnapshot.docs.map(
+            (doc) => doc.data() as WorkoutLog
+          );
+          console.log(`Workout logs for user ${user.id}:`, workoutLogs);
 
           // Calculate points
           const stepPoints = dailyStats.reduce(
-            (sum, stat) => sum + (stat.stepPoints || 0),
+            (sum: number, stat) => sum + (stat.stepPoints || 0),
             0
           );
           const habitPoints = dailyStats.reduce(
-            (sum, stat) =>
+            (sum: number, stat) =>
               sum +
-              (stat.healthyHabits?.filter(
-                (h: { completed: boolean }) => h.completed
-              ).length || 0),
+              (stat.healthyHabits?.filter((h) => h.completed).length || 0),
             0
           );
           const workoutPoints = workoutLogs.reduce(
-            (sum, log) => sum + (log.points || 0),
+            (sum: number, log) => sum + (log.points || 0),
             0
           );
 
@@ -88,12 +124,14 @@ export const useDashboardStats = (selectedDate: Date) => {
             habitPoints,
             streakPoints,
             workouts: workoutLogs.length,
-            steps: dailyStats.reduce((sum, stat) => sum + (stat.steps || 0), 0),
+            steps: dailyStats.reduce(
+              (sum: number, stat) => sum + (stat.steps || 0),
+              0
+            ),
             habits: habitPoints,
             streak,
           };
 
-          // Calculate daily points distribution
           const dailyPoints = eachDayOfInterval({
             start: monthStart,
             end: monthEnd,
@@ -110,14 +148,18 @@ export const useDashboardStats = (selectedDate: Date) => {
                 (dayStats?.stepPoints || 0) +
                 (dayStats?.healthyHabits?.filter((h) => h.completed).length ||
                   0) +
-                dayWorkouts.reduce((sum, log) => sum + (log.points || 0), 0),
+                dayWorkouts.reduce(
+                  (sum: number, log) => sum + (log.points || 0),
+                  0
+                ),
               stepPoints: dayStats?.stepPoints || 0,
               workoutPoints: dayWorkouts.reduce(
-                (sum, log) => sum + (log.points || 0),
+                (sum: number, log) => sum + (log.points || 0),
                 0
               ),
               habitPoints:
                 dayStats?.healthyHabits?.filter((h) => h.completed).length || 0,
+              userId: user.id,
             };
           });
 
@@ -129,45 +171,59 @@ export const useDashboardStats = (selectedDate: Date) => {
 
         const allUserStats = await Promise.all(userStatsPromises);
 
+        // Create userDailyPoints map
+        const userDailyPoints: DashboardData["userDailyPoints"] = {};
+        allUserStats.forEach((stats) => {
+          userDailyPoints[stats.userStats.userId] = stats.dailyPoints;
+        });
+
+        // Combine all daily points for the overview
+        const allDailyPoints = allUserStats.flatMap(
+          (stats) => stats.dailyPoints
+        );
+
         const dashboardData: DashboardData = {
           userStats: allUserStats.map((stats) => stats.userStats),
+          userDailyPoints,
           monthlyStats: {
-            dailyPoints: allUserStats[0]?.dailyPoints || [],
+            dailyPoints: allDailyPoints,
             totalStats: {
               totalPoints: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.totalPoints,
+                (sum: number, stats) => sum + stats.userStats.totalPoints,
                 0
               ),
               stepPoints: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.stepPoints,
+                (sum: number, stats) => sum + stats.userStats.stepPoints,
                 0
               ),
               workoutPoints: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.workoutPoints,
+                (sum: number, stats) => sum + stats.userStats.workoutPoints,
                 0
               ),
               habitPoints: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.habitPoints,
+                (sum: number, stats) => sum + stats.userStats.habitPoints,
                 0
               ),
               streakPoints: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.streakPoints,
+                (sum: number, stats) => sum + stats.userStats.streakPoints,
                 0
               ),
               workouts: allUserStats.reduce(
-                (sum, stats) => sum + stats.userStats.workouts,
+                (sum: number, stats) => sum + stats.userStats.workouts,
                 0
               ),
               averageSteps:
                 allUserStats.reduce(
-                  (sum, stats) => sum + stats.userStats.steps,
+                  (sum: number, stats) => sum + stats.userStats.steps,
                   0
                 ) / (allUserStats.length || 1),
               habitCompletionRate:
                 allUserStats.reduce(
-                  (sum, stats) => sum + stats.userStats.habits,
+                  (sum: number, stats) => sum + stats.userStats.habits,
                   0
-                ) / (allUserStats.length * dailyPoints.length || 1),
+                ) /
+                (allUserStats.length * allUserStats[0]?.dailyPoints.length ||
+                  1),
             },
           },
         };
@@ -187,14 +243,15 @@ export const useDashboardStats = (selectedDate: Date) => {
   return { dashboardData, isLoading, error };
 };
 
-const calculateStreak = (dailyStats: any[], workoutLogs: any[]): number => {
-  // Consider a day active if there are either workouts or completed habits
+const calculateStreak = (
+  dailyStats: DailyStats[],
+  workoutLogs: WorkoutLog[]
+): number => {
   const activeDays = new Set([
     ...dailyStats
       .filter(
         (stat) =>
-          stat.stepPoints > 0 ||
-          stat.healthyHabits?.some((h: any) => h.completed)
+          stat.stepPoints > 0 || stat.healthyHabits?.some((h) => h.completed)
       )
       .map((stat) => stat.date),
     ...workoutLogs.map((log) => format(log.date.toDate(), "yyyy-MM-dd")),

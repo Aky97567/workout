@@ -1,1 +1,1 @@
-export { Dashboard, Portal } from "./components";
+export { Portal } from "./components";

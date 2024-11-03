@@ -9,11 +9,13 @@ export interface WorkoutLog {
 
 export type WorkoutType =
   | "gym"
-  | "home"
+  | "pilates"
   | "sports"
   | "swimming"
   | "fitness_class"
-  | "yoga_pilates";
+  | "yoga"
+  | "cycling"
+  | "running";
 
 export interface DailyStats {
   id?: string;
