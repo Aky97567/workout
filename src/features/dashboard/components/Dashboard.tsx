@@ -121,7 +121,9 @@ export const Dashboard: React.FC = () => {
     const sortedDates = Array.from(allDates).sort();
 
     return sortedDates.map((date) => {
-      const dataPoint: any = { date: format(new Date(date), "MMM dd") };
+      const dataPoint: Record<string, string | number> = {
+        date: format(new Date(date), "MMM dd"),
+      };
 
       // Add data for each user
       dashboardData.userStats.forEach((user) => {
