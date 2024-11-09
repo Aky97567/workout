@@ -1,5 +1,5 @@
 // src/features/dashboard/components/Dashboard.tsx
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import {
   LineChart,

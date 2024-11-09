@@ -1,5 +1,5 @@
 // src/features/daily-stats/DailyStatsLogger.tsx
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import { format, startOfDay } from "date-fns";
 import { useAuth } from "../auth";
