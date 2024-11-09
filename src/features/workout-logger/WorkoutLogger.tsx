@@ -1,80 +1,48 @@
 // src/features/workout-logger/components/WorkoutLogger.tsx
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { addDoc, collection } from "firebase/firestore";
+import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
 import { db } from "../../shared/config";
-import { WorkoutType } from "../../common";
+import { WorkoutType, workoutTypes } from "../../common";
 import { useAuth } from "../auth";
-import styled from "@emotion/styled";
-
-const LoggerContainer = styled.div`
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-`;
-
-const Select = styled.select`
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-`;
-
-const Button = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #45a049;
-  }
-
-  &:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-`;
-
-const workoutTypes: Record<WorkoutType, string> = {
-  gym: "Gym Sesh",
-  pilates: "Pilates",
-  sports: "Sports Game/Match",
-  swimming: "Swimming Session",
-  fitness_class: "Fitness Class",
-  yoga: "Yoga",
-  cycling: "Cycling",
-  running: "Running",
-};
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  LoggerContainer,
+  Select,
+  DatePickerContainer,
+  DatePickerPopup,
+  DateInput,
+} from "./WorkoutLogger.styles";
+import "react-day-picker/dist/style.css";
 
 export const WorkoutLogger = () => {
   const [workoutType, setWorkoutType] = useState<WorkoutType>("gym");
   const [duration, setDuration] = useState<number>(30);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const datePickerRef = useRef<HTMLDivElement>(null);
   const { currentUser } = useAuth();
+
+  // Close date picker when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        datePickerRef.current &&
+        !datePickerRef.current.contains(event.target as Node)
+      ) {
+        setIsDatePickerOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const calculatePoints = (type: WorkoutType, duration: number): number => {
     if (duration < 30) return 0;
@@ -105,9 +73,13 @@ export const WorkoutLogger = () => {
 
     const points = calculatePoints(workoutType, duration);
 
+    // Set the time of selectedDate to noon to avoid timezone issues
+    const workoutDate = new Date(selectedDate);
+    workoutDate.setHours(12, 0, 0, 0);
+
     const workoutLog = {
       userId: currentUser.uid,
-      date: new Date(),
+      date: workoutDate,
       type: workoutType,
       duration,
       points,
@@ -132,6 +104,13 @@ export const WorkoutLogger = () => {
     }
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date) {
+      setSelectedDate(date);
+      setIsDatePickerOpen(false);
+    }
+  };
+
   if (!currentUser) {
     return <div>Please log in to log workouts</div>;
   }
@@ -140,6 +119,30 @@ export const WorkoutLogger = () => {
     <LoggerContainer>
       <h2>Log Your Workout</h2>
       <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label>Workout Date</Label>
+          <div ref={datePickerRef} style={{ position: "relative" }}>
+            <DateInput
+              type="text"
+              value={format(selectedDate, "MMMM d, yyyy")}
+              onClick={() => setIsDatePickerOpen(true)}
+              readOnly
+            />
+            {isDatePickerOpen && (
+              <DatePickerPopup>
+                <DatePickerContainer>
+                  <DayPicker
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={handleDateSelect}
+                    disabled={{ after: new Date() }}
+                  />
+                </DatePickerContainer>
+              </DatePickerPopup>
+            )}
+          </div>
+        </FormGroup>
+
         <FormGroup>
           <Label>Workout Type</Label>
           <Select

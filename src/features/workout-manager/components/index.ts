@@ -1,0 +1,1 @@
+export { WorkoutManager } from "./WorkoutManager";

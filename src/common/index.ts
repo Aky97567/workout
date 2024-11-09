@@ -7,3 +7,5 @@ export type {
   WorkoutLog,
   WorkoutType,
 } from "./types";
+
+export { workoutTypes } from "./types";

@@ -17,6 +17,17 @@ export type WorkoutType =
   | "cycling"
   | "running";
 
+export const workoutTypes: Record<WorkoutType, string> = {
+  gym: "Gym Sesh",
+  pilates: "Pilates",
+  sports: "Sports Game/Match",
+  swimming: "Swimming Session",
+  fitness_class: "Fitness Class",
+  yoga: "Yoga",
+  cycling: "Cycling",
+  running: "Running",
+};
+
 export interface DailyStats {
   id?: string;
   userId: string;
