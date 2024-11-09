@@ -78,11 +78,11 @@ export const WorkoutLogger = () => {
         "workoutLogs"
       );
       await addDoc(userWorkoutLogsRef, workoutLog);
-      alert("Workout logged successfully!");
+      alert("Activity logged successfully!");
       setDuration(30);
     } catch (error) {
-      console.error("Error logging workout:", error);
-      alert("Error logging workout. Please try again.");
+      console.error("Error logging activity:", error);
+      alert("Error logging activity. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -96,15 +96,15 @@ export const WorkoutLogger = () => {
   };
 
   if (!currentUser) {
-    return <div>Please log in to log workouts</div>;
+    return <div>Please log in to log activities</div>;
   }
 
   return (
     <LoggerContainer>
-      <h2>Log Your Workout</h2>
+      <h2>Log An Activity</h2>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>Workout Date</Label>
+          <Label>Activity Date</Label>
           <div ref={datePickerRef} style={{ position: "relative" }}>
             <DateInput
               type="text"
@@ -128,7 +128,7 @@ export const WorkoutLogger = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label>Workout Type</Label>
+          <Label>Activity Type</Label>
           <Select
             value={workoutType}
             onChange={(e) => setWorkoutType(e.target.value as WorkoutType)}
@@ -152,7 +152,7 @@ export const WorkoutLogger = () => {
         </FormGroup>
 
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Logging..." : "Log Workout"}
+          {isLoading ? "Logging..." : "Log Activity"}
         </Button>
       </Form>
     </LoggerContainer>

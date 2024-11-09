@@ -15,7 +15,8 @@ export type WorkoutType =
   | "fitness_class"
   | "yoga"
   | "cycling"
-  | "running";
+  | "running"
+  | "meditation";
 
 export const workoutTypes: Record<WorkoutType, string> = {
   gym: "Gym Sesh",
@@ -26,6 +27,7 @@ export const workoutTypes: Record<WorkoutType, string> = {
   yoga: "Yoga",
   cycling: "Cycling",
   running: "Running",
+  meditation: "Meditation",
 };
 
 export interface DailyStats {

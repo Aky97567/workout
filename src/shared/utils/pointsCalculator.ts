@@ -10,6 +10,7 @@ export const basePointsMap: Record<WorkoutType, number> = {
   yoga: 2,
   cycling: 2,
   running: 1,
+  meditation: 3,
 };
 
 export const calculatePoints = (
