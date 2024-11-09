@@ -116,6 +116,6 @@ export const useDailyStats = (
 };
 
 const calculateStepPoints = (steps: number): number => {
-  const points = Math.floor(steps / 2000);
-  return Math.min(points, 5);
+  const points = steps / 1000;
+  return Number(points.toFixed(3));
 };
