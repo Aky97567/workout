@@ -1,5 +1,3 @@
-// src/features/workout-manager/hooks/useWorkoutManager.ts
-
 import { useState, useEffect, useCallback } from "react";
 import {
   collection,
@@ -13,17 +11,7 @@ import {
 } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { calculatePoints, db } from "../../../shared";
-import { WorkoutType } from "../../../common";
-
-interface WorkoutLog {
-  id: string;
-  userId: string;
-  type: WorkoutType;
-  duration: number;
-  points: number;
-  date: Date | null;
-  createdAt: Date;
-}
+import type { WorkoutType, WorkoutLog } from "../../../common";
 
 interface FirestoreWorkoutLog {
   userId: string;
@@ -34,12 +22,40 @@ interface FirestoreWorkoutLog {
   createdAt: Timestamp;
 }
 
-export const useWorkoutManager = (currentUser: User | null) => {
-  const [workouts, setWorkouts] = useState<WorkoutLog[]>([]);
-  const [editingWorkout, setEditingWorkout] = useState<WorkoutLog | null>(null);
-  const [deletingWorkout, setDeletingWorkout] = useState<WorkoutLog | null>(
-    null
-  );
+export interface WorkoutLogWithNullableDate extends Omit<WorkoutLog, "date"> {
+  id: string;
+  date: Date | null;
+  createdAt: Date;
+}
+
+interface UseWorkoutManagerReturn {
+  workouts: WorkoutLogWithNullableDate[];
+  editingWorkout: WorkoutLogWithNullableDate | null;
+  deletingWorkout: WorkoutLogWithNullableDate | null;
+  selectedDate: Date | null;
+  isLoading: boolean;
+  isDatePickerOpen: boolean;
+  setEditingWorkout: (workout: WorkoutLogWithNullableDate | null) => void;
+  setDeletingWorkout: (workout: WorkoutLogWithNullableDate | null) => void;
+  setIsDatePickerOpen: (isOpen: boolean) => void;
+  setSelectedDate: (date: Date | null) => void;
+  handleEdit: (workout: WorkoutLogWithNullableDate) => void;
+  handleUpdateWorkout: (
+    workoutId: string,
+    updates: Partial<WorkoutLogWithNullableDate>
+  ) => Promise<void>;
+  handleDelete: (workoutId: string) => Promise<void>;
+}
+
+export const useWorkoutManager = (
+  currentUser: User | null
+): UseWorkoutManagerReturn => {
+  const [workouts, setWorkouts] = useState<WorkoutLogWithNullableDate[]>([]);
+  const [editingWorkout, setEditingWorkout] =
+    useState<WorkoutLogWithNullableDate | null>(null);
+  const [deletingWorkout, setDeletingWorkout] =
+    useState<WorkoutLogWithNullableDate | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
@@ -56,18 +72,19 @@ export const useWorkoutManager = (currentUser: User | null) => {
       const q = query(workoutsRef, orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
 
-      const fetchedWorkouts: WorkoutLog[] = querySnapshot.docs.map((doc) => {
-        const data = doc.data() as FirestoreWorkoutLog;
-        return {
-          id: doc.id,
-          userId: data.userId,
-          type: data.type,
-          duration: data.duration,
-          points: data.points,
-          date: data.date?.toDate() || null,
-          createdAt: data.createdAt.toDate(),
-        };
-      });
+      const fetchedWorkouts: WorkoutLogWithNullableDate[] =
+        querySnapshot.docs.map((doc) => {
+          const data = doc.data() as FirestoreWorkoutLog;
+          return {
+            id: doc.id,
+            userId: data.userId,
+            type: data.type,
+            duration: data.duration,
+            points: data.points,
+            date: data.date?.toDate() || null,
+            createdAt: data.createdAt.toDate(),
+          };
+        });
 
       setWorkouts(fetchedWorkouts);
     } catch (error) {
@@ -81,13 +98,16 @@ export const useWorkoutManager = (currentUser: User | null) => {
     fetchWorkouts();
   }, [fetchWorkouts]);
 
-  const handleEdit = (workout: WorkoutLog) => {
+  const handleEdit = (workout: WorkoutLogWithNullableDate) => {
     setEditingWorkout(workout);
+    if (workout.date) {
+      setSelectedDate(workout.date);
+    }
   };
 
   const handleUpdateWorkout = async (
     workoutId: string,
-    updates: Partial<WorkoutLog>
+    updates: Partial<WorkoutLogWithNullableDate>
   ) => {
     if (!currentUser) return;
 
@@ -161,11 +181,13 @@ export const useWorkoutManager = (currentUser: User | null) => {
     workouts,
     editingWorkout,
     deletingWorkout,
+    selectedDate,
     isLoading,
     isDatePickerOpen,
     setEditingWorkout,
     setDeletingWorkout,
     setIsDatePickerOpen,
+    setSelectedDate,
     handleEdit,
     handleUpdateWorkout,
     handleDelete,

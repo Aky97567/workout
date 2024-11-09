@@ -1,5 +1,5 @@
-// src/features/workout-manager/components/WorkoutManager.styles.ts
 import styled from "@emotion/styled";
+import { DayPicker } from "react-day-picker";
 
 export const ManagerContainer = styled.div`
   max-width: 1200px;
@@ -15,6 +15,50 @@ export const WorkoutGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
+`;
+
+export const CalendarContainer = styled.div`
+  display: grid;
+  grid-template-columns: minmax(auto, 400px) 1fr;
+  gap: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const StyledDayPicker = styled(DayPicker)`
+  .rdp-day_has_workout {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background-color: #4caf50;
+      border-radius: 50%;
+    }
+  }
+
+  .rdp-day_selected:not([disabled]) {
+    background-color: #4caf50;
+  }
+
+  .rdp-day_selected:focus:not([disabled]) {
+    background-color: #45a049;
+  }
+
+  .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+    background-color: rgba(76, 175, 80, 0.1);
+  }
 `;
 
 export const WorkoutCard = styled.div`
@@ -108,6 +152,13 @@ export const CancelButton = styled(ButtonBase)`
   }
 `;
 
+export const DayWorkouts = styled.div`
+  h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+  }
+`;
+
 export const NoWorkouts = styled.div`
   text-align: center;
   padding: 2rem;
@@ -131,6 +182,33 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+`;
+
+export const ModalBase = styled.div`
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const EditModal = styled(ModalBase)`
+  min-height: 400px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ConfirmModal = styled(ModalBase)`
+  min-height: auto;
+  text-align: center;
+
+  p {
+    margin: 1rem 0 2rem;
+    color: #666;
+  }
 `;
 
 export const ModalHeader = styled.div`
@@ -161,36 +239,11 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const EditModal = styled.div`
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 500px;
-  min-height: 400px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-export const ConfirmModal = styled(EditModal)`
-  min-height: auto;
-  text-align: center;
-
-  p {
-    margin: 1rem 0 2rem;
-    color: #666;
-  }
-`;
-
 export const ModalContent = styled.div`
   flex: 1;
   overflow-y: auto;
   padding-right: 0.5rem;
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -211,37 +264,17 @@ export const ModalContent = styled.div`
 `;
 
 export const DateFieldGroup = styled.div`
+  margin-bottom: 1.5rem;
+
   label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
   }
-
-  .rdp {
-    margin: 1rem 0;
-  }
 `;
 
 export const DatePickerContainer = styled.div`
   margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .rdp {
-    --rdp-cell-size: 45px; // Slightly larger cells
-    --rdp-accent-color: #4caf50;
-    --rdp-background-color: #e9e9e9;
-    margin: 0;
-  }
-
-  .rdp-day {
-    font-size: 1rem;
-  }
-
-  .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
-    background-color: #e9e9e9;
-  }
 `;
 
 export const DatePickerWrapper = styled.div`
@@ -250,7 +283,7 @@ export const DatePickerWrapper = styled.div`
 `;
 
 export const DateInput = styled.input`
-  width: 80%;
+  width: 100%;
   padding: 0.75rem;
   border-radius: 4px;
   border: 1px solid #ccc;
@@ -271,4 +304,23 @@ export const ButtonGroup = styled.div`
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid #eee;
+`;
+
+export const WorkoutsListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  min-height: 300px;
+`;
+
+export const EmptyState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
 `;

@@ -1,14 +1,14 @@
-// src/features/workout-manager/components/WorkoutManager.tsx
-
-import { useRef } from "react";
-import { DayPicker } from "react-day-picker";
+import React, { useRef } from "react";
 import { format } from "date-fns";
+import { DayPicker } from "react-day-picker";
 import { useAuth } from "../../auth";
 import { workoutTypes } from "../../../common";
 import { useWorkoutManager } from "../hooks/useWorkoutManager";
+import { WorkoutCalendarView } from "./WorkoutCalendarView";
 import {
   ManagerContainer,
-  WorkoutGrid,
+  CalendarContainer,
+  WorkoutsListContainer,
   WorkoutCard,
   CardHeader,
   CardContent,
@@ -30,6 +30,8 @@ import {
   ModalContent,
   DateFieldGroup,
   CardActions,
+  EmptyState,
+  DayWorkouts,
 } from "./WorkoutManager.styles";
 import "react-day-picker/dist/style.css";
 
@@ -41,15 +43,26 @@ export const WorkoutManager = () => {
     workouts,
     editingWorkout,
     deletingWorkout,
+    selectedDate,
     isLoading,
     isDatePickerOpen,
     setEditingWorkout,
     setDeletingWorkout,
     setIsDatePickerOpen,
+    setSelectedDate,
     handleEdit,
     handleUpdateWorkout,
     handleDelete,
   } = useWorkoutManager(currentUser);
+
+  const selectedDateWorkouts = React.useMemo(() => {
+    if (!selectedDate) return [];
+    const dateStr = format(selectedDate, "yyyy-MM-dd");
+    return workouts.filter(
+      (workout) =>
+        workout.date && format(workout.date, "yyyy-MM-dd") === dateStr
+    );
+  }, [selectedDate, workouts]);
 
   const handleSave = async () => {
     if (!editingWorkout) return;
@@ -60,7 +73,7 @@ export const WorkoutManager = () => {
         duration: editingWorkout.duration,
       });
     } catch (error) {
-      alert("Error updating workout. Please try again.");
+      alert("Error updating activity. Please try again.");
     }
   };
 
@@ -74,12 +87,12 @@ export const WorkoutManager = () => {
     try {
       await handleDelete(deletingWorkout.id);
     } catch (error) {
-      alert("Error deleting workout. Please try again.");
+      alert("Error deleting activity. Please try again.");
     }
   };
 
   if (isLoading) {
-    return <LoadingSpinner>Loading workouts...</LoadingSpinner>;
+    return <LoadingSpinner>Loading activities...</LoadingSpinner>;
   }
 
   if (!workouts.length) {
@@ -92,35 +105,55 @@ export const WorkoutManager = () => {
 
   return (
     <ManagerContainer>
-      <h2>Manage Workouts</h2>
-      <WorkoutGrid>
-        {workouts.map((workout) => (
-          <WorkoutCard key={workout.id}>
-            <CardHeader>
-              <h3>{workoutTypes[workout.type]}</h3>
-              <CardActions>
-                <EditButton onClick={() => handleEdit(workout)}>
-                  Edit
-                </EditButton>
-                <DeleteButton onClick={() => setDeletingWorkout(workout)}>
-                  Delete
-                </DeleteButton>
-              </CardActions>
-            </CardHeader>
-            <CardContent>
-              <p>Duration: {workout.duration} minutes</p>
-              <p>Points: {workout.points}</p>
-              <p>
-                Date:{" "}
-                {workout.date
-                  ? format(workout.date, "MMMM d, yyyy")
-                  : "No date set"}
-              </p>
-              <p>Logged: {format(workout.createdAt, "MMMM d, yyyy")}</p>
-            </CardContent>
-          </WorkoutCard>
-        ))}
-      </WorkoutGrid>
+      <h2>Manage Activities</h2>
+
+      <CalendarContainer>
+        <WorkoutCalendarView
+          workouts={workouts}
+          selectedDate={selectedDate}
+          onDateSelect={setSelectedDate}
+        />
+
+        <DayWorkouts>
+          <h3>
+            {selectedDate
+              ? `Workouts for ${format(selectedDate, "MMMM d, yyyy")}`
+              : "Select a date to view activities"}
+          </h3>
+
+          {selectedDate ? (
+            <WorkoutsListContainer>
+              {selectedDateWorkouts.length > 0 ? (
+                selectedDateWorkouts.map((workout) => (
+                  <WorkoutCard key={workout.id}>
+                    <CardHeader>
+                      <h3>{workoutTypes[workout.type]}</h3>
+                      <CardActions>
+                        <EditButton onClick={() => handleEdit(workout)}>
+                          Edit
+                        </EditButton>
+                        <DeleteButton
+                          onClick={() => setDeletingWorkout(workout)}
+                        >
+                          Delete
+                        </DeleteButton>
+                      </CardActions>
+                    </CardHeader>
+                    <CardContent>
+                      <p>Duration: {workout.duration} minutes</p>
+                      <p>Points: {workout.points}</p>
+                    </CardContent>
+                  </WorkoutCard>
+                ))
+              ) : (
+                <EmptyState>No activities logged for this date</EmptyState>
+              )}
+            </WorkoutsListContainer>
+          ) : (
+            <EmptyState>Select a date to view activities</EmptyState>
+          )}
+        </DayWorkouts>
+      </CalendarContainer>
 
       {editingWorkout && (
         <Overlay
@@ -148,7 +181,7 @@ export const WorkoutManager = () => {
                 />
               </DateFieldGroup>
               <DateFieldGroup>
-                <label>Workout Date:</label>
+                <label>Activity Date:</label>
                 <DatePickerWrapper>
                   <DateInput
                     type="text"
