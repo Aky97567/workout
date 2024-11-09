@@ -1,5 +1,5 @@
 // src/features/workout-logger/components/WorkoutLogger.tsx
-import React, { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
@@ -30,7 +30,7 @@ export const WorkoutLogger = () => {
   const { currentUser } = useAuth();
 
   // Close date picker when clicking outside
-  React.useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         datePickerRef.current &&
@@ -45,9 +45,7 @@ export const WorkoutLogger = () => {
   }, []);
 
   const calculatePoints = (type: WorkoutType, duration: number): number => {
-    if (duration < 30) return 0;
-
-    const pointsMap: Record<WorkoutType, number> = {
+    const basePointsMap: Record<WorkoutType, number> = {
       gym: 3,
       pilates: 3,
       sports: 3,
@@ -58,7 +56,12 @@ export const WorkoutLogger = () => {
       running: 1,
     };
 
-    return pointsMap[type];
+    // Calculate points proportionally based on duration
+    const basePoints = basePointsMap[type];
+    const pointsForDuration = (basePoints * duration) / 30;
+
+    // Round to 2 decimal places
+    return Number(pointsForDuration.toFixed(2));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
