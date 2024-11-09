@@ -19,6 +19,7 @@ import {
   DateInput,
 } from "./WorkoutLogger.styles";
 import "react-day-picker/dist/style.css";
+import { calculatePoints } from "../../shared";
 
 export const WorkoutLogger = () => {
   const [workoutType, setWorkoutType] = useState<WorkoutType>("gym");
@@ -43,26 +44,6 @@ export const WorkoutLogger = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const calculatePoints = (type: WorkoutType, duration: number): number => {
-    const basePointsMap: Record<WorkoutType, number> = {
-      gym: 3,
-      pilates: 3,
-      sports: 3,
-      swimming: 3,
-      fitness_class: 3,
-      yoga: 2,
-      cycling: 2,
-      running: 1,
-    };
-
-    // Calculate points proportionally based on duration
-    const basePoints = basePointsMap[type];
-    const pointsForDuration = (basePoints * duration) / 30;
-
-    // Round to 2 decimal places
-    return Number(pointsForDuration.toFixed(2));
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
