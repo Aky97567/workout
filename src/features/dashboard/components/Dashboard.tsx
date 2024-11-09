@@ -1,4 +1,3 @@
-// src/features/dashboard/components/Dashboard.tsx
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import {
@@ -38,6 +37,63 @@ import {
   TabList,
   Tab,
 } from "../styles/Dashboard.styles";
+import styled from "@emotion/styled";
+
+// New styled components to replace Tailwind classes
+const MonthPickerDialog = styled.div`
+  padding: 1rem;
+  background: white;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const MonthPickerContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const StyledSelect = styled.select`
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+`;
+
+const ViewMonthButton = styled.button`
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+const StatsCardPoints = styled.div`
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+`;
+
+const StatsCardMainStats = styled.div`
+  color: #666;
+  margin-bottom: 0.5rem;
+`;
+
+const StatsCardBreakdown = styled.div`
+  font-size: 0.875rem;
+  color: #666;
+`;
 
 // Color palette for user lines
 const USER_COLORS = [
@@ -133,10 +189,12 @@ export const Dashboard: React.FC = () => {
 
         switch (activeTab) {
           case "points":
-            dataPoint[user.name] = userPoints?.points || 0;
+            dataPoint[user.name] = Number((userPoints?.points || 0).toFixed(2));
             break;
           case "activities":
-            dataPoint[`${user.name} (Steps)`] = userPoints?.stepPoints || 0;
+            dataPoint[`${user.name} (Steps)`] = Number(
+              (userPoints?.stepPoints || 0).toFixed(2)
+            );
             dataPoint[`${user.name} (Workouts)`] =
               userPoints?.workoutPoints || 0;
             break;
@@ -154,14 +212,17 @@ export const Dashboard: React.FC = () => {
   const userStats = dashboardData.userStats
     .map((user) => {
       const monthPoints =
-        dashboardData.userDailyPoints[user.userId]?.reduce(
-          (sum, day) => sum + day.points,
-          0
-        ) || 0;
+        dashboardData.userDailyPoints[user.userId]?.reduce((sum, day) => {
+          // Round step points to 2 decimal places during calculation
+          const stepPoints = Number((day.stepPoints || 0).toFixed(2));
+          return (
+            sum + stepPoints + (day.workoutPoints || 0) + (day.habitPoints || 0)
+          );
+        }, 0) || 0;
 
       return {
         ...user,
-        monthPoints,
+        monthPoints: Number(monthPoints.toFixed(2)),
       };
     })
     .sort((a, b) => b.monthPoints - a.monthPoints);
@@ -177,56 +238,76 @@ export const Dashboard: React.FC = () => {
             {format(selectedDate, "MMMM yyyy")}
           </MonthPickerButton>
           <MonthPickerContainer isOpen={isOpen}>
-            <div className="p-4 bg-white rounded shadow-lg">
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-2">
-                  <select
+            <MonthPickerDialog>
+              <MonthPickerContent>
+                <SelectContainer>
+                  <StyledSelect
                     value={tempYear}
                     onChange={(e) => setTempYear(parseInt(e.target.value))}
-                    className="flex-1 p-2 border rounded"
                   >
                     {YEARS.map((year) => (
                       <option key={year} value={year}>
                         {year}
                       </option>
                     ))}
-                  </select>
-                  <select
+                  </StyledSelect>
+                  <StyledSelect
                     value={tempMonth}
                     onChange={(e) => setTempMonth(parseInt(e.target.value))}
-                    className="flex-1 p-2 border rounded"
                   >
                     {MONTHS.map((month, index) => (
                       <option key={month} value={index}>
                         {month}
                       </option>
                     ))}
-                  </select>
-                </div>
-                <button
-                  onClick={handleDateSelect}
-                  className="w-full px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 transition-colors"
-                >
+                  </StyledSelect>
+                </SelectContainer>
+                <ViewMonthButton onClick={handleDateSelect}>
                   View Month
-                </button>
-              </div>
-            </div>
+                </ViewMonthButton>
+              </MonthPickerContent>
+            </MonthPickerDialog>
           </MonthPickerContainer>
         </DatePickerWrapper>
       </Header>
 
       <StatsGrid>
-        {userStats.slice(0, 4).map((user) => (
-          <StatsCard key={user.userId}>
-            <StatsCardTitle>{user.name}</StatsCardTitle>
-            <div className="text-3xl font-bold mb-2">
-              {user.monthPoints.toLocaleString()}
-            </div>
-            <div className="text-gray-600">
-              {user.workouts} workouts · {Math.round(user.steps / 1000)}k steps
-            </div>
-          </StatsCard>
-        ))}
+        {userStats.slice(0, 4).map((user) => {
+          // Calculate point breakdowns for each user
+          const userDailyPoints =
+            dashboardData.userDailyPoints[user.userId] || [];
+          const stepPoints = Number(
+            userDailyPoints
+              .reduce((sum, day) => sum + (day.stepPoints || 0), 0)
+              .toFixed(2)
+          );
+          const workoutPoints = userDailyPoints.reduce(
+            (sum, day) => sum + (day.workoutPoints || 0),
+            0
+          );
+          const habitPoints = userDailyPoints.reduce(
+            (sum, day) => sum + (day.habitPoints || 0),
+            0
+          );
+
+          return (
+            <StatsCard key={user.userId}>
+              <StatsCardTitle>{user.name}</StatsCardTitle>
+              <StatsCardPoints>
+                {user.monthPoints.toLocaleString()}
+              </StatsCardPoints>
+              <StatsCardMainStats>
+                {user.workouts} workouts · {Math.round(user.steps / 1000)}k
+                steps
+              </StatsCardMainStats>
+              <StatsCardBreakdown>
+                Steps: {stepPoints.toLocaleString()} pts · Activities:{" "}
+                {workoutPoints.toLocaleString()} pts · Habits:{" "}
+                {habitPoints.toLocaleString()} pts
+              </StatsCardBreakdown>
+            </StatsCard>
+          );
+        })}
       </StatsGrid>
 
       <TabContainer>
@@ -309,23 +390,47 @@ export const Dashboard: React.FC = () => {
 
       <LeaderboardContainer>
         <LeaderboardTitle>Monthly Leaderboard</LeaderboardTitle>
-        {userStats.map((user) => (
-          <LeaderboardItem
-            key={user.userId}
-            isCurrentUser={user.userId === currentUserId}
-          >
-            <UserInfo>
-              <UserName style={{ color: userColorMap[user.userId] }}>
-                {user.name}
-              </UserName>
-              <UserStats>
-                {user.workouts} workouts · {Math.round(user.steps / 1000)}k
-                steps · {user.streak} day streak
-              </UserStats>
-            </UserInfo>
-            <Points>{user.monthPoints.toLocaleString()} pts</Points>
-          </LeaderboardItem>
-        ))}
+        {userStats.map((user) => {
+          // Calculate point breakdowns for leaderboard
+          const userDailyPoints =
+            dashboardData.userDailyPoints[user.userId] || [];
+          const stepPoints = Number(
+            userDailyPoints
+              .reduce((sum, day) => sum + (day.stepPoints || 0), 0)
+              .toFixed(2)
+          );
+          const workoutPoints = userDailyPoints.reduce(
+            (sum, day) => sum + (day.workoutPoints || 0),
+            0
+          );
+          const habitPoints = userDailyPoints.reduce(
+            (sum, day) => sum + (day.habitPoints || 0),
+            0
+          );
+
+          return (
+            <LeaderboardItem
+              key={user.userId}
+              isCurrentUser={user.userId === currentUserId}
+            >
+              <UserInfo>
+                <UserName style={{ color: userColorMap[user.userId] }}>
+                  {user.name}
+                </UserName>
+                <UserStats>
+                  {user.workouts} workouts · {Math.round(user.steps / 1000)}k
+                  steps · {user.streak} day streak
+                </UserStats>
+                <UserStats>
+                  Steps: {stepPoints.toLocaleString()} pts · Activities:{" "}
+                  {workoutPoints.toLocaleString()} pts · Habits:{" "}
+                  {habitPoints.toLocaleString()} pts
+                </UserStats>
+              </UserInfo>
+              <Points>{user.monthPoints.toLocaleString()} pts</Points>
+            </LeaderboardItem>
+          );
+        })}
       </LeaderboardContainer>
     </DashboardContainer>
   );
