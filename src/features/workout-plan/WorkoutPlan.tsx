@@ -10,7 +10,7 @@ import {
   MuscleGroup,
 } from "./WorkoutPlan.styles";
 import { exerciseImages } from "./images";
-import { useWindowHeight } from "../shared/hooks";
+import { useWindowHeight } from "../../shared";
 
 interface Exercise {
   name: string;

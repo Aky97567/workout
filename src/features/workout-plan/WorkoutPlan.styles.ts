@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaQuery, COLOR_PRIMARY } from "../shared";
+import { COLOR_PRIMARY, mediaQuery } from "../../shared";
 
 export const Container = styled.div<{ height: number }>`
   padding: 10px;

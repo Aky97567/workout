@@ -1,23 +1,33 @@
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Login } from "../../auth";
 import { WorkoutLogger } from "../../workout-logger";
 import { DailyStatsLogger } from "../../stats-logger";
 import { Dashboard } from "../../dashboard";
 import { useAuth } from "../../auth";
 import { WorkoutManager } from "../../workout-manager";
+import { WorkoutPlan } from "../../workout-plan";
 import {
   PortalContainer,
   Nav,
   NavList,
   NavItem,
-  HomeLink,
   Content,
+  MobileMenuButton,
+  MobileOverlay,
+  MobileNavHeader,
 } from "./Portal.styles";
 
-type View = "dashboard" | "workout-logger" | "stats-logger" | "workout-manager";
+type View =
+  | "workout-plan"
+  | "dashboard"
+  | "workout-logger"
+  | "stats-logger"
+  | "workout-manager"; // Added workout-plan
 
 export const Portal = () => {
   const [currentView, setCurrentView] = useState<View>("dashboard");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentUser, signOut } = useAuth();
 
   if (!currentUser) {
@@ -26,6 +36,8 @@ export const Portal = () => {
 
   const renderView = () => {
     switch (currentView) {
+      case "workout-plan":
+        return <WorkoutPlan />;
       case "dashboard":
         return <Dashboard />;
       case "workout-logger":
@@ -47,15 +59,46 @@ export const Portal = () => {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleNavClick = (view: View) => {
+    setCurrentView(view);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <PortalContainer>
       <Nav>
-        <HomeLink href="/workout/">Workout Plan</HomeLink>
-        <NavList>
+        <MobileMenuButton onClick={toggleMobileMenu}>
+          <Menu size={24} />
+        </MobileMenuButton>
+        <MobileOverlay
+          $isOpen={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        <NavList $isOpen={isMobileMenuOpen}>
+          <MobileNavHeader>
+            <X
+              size={24}
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{ marginRight: "0.5rem", cursor: "pointer" }}
+            />
+            Menu
+          </MobileNavHeader>
+          <li>
+            <NavItem
+              active={currentView === "workout-plan"}
+              onClick={() => handleNavClick("workout-plan")}
+            >
+              Workout Plan
+            </NavItem>
+          </li>
           <li>
             <NavItem
               active={currentView === "dashboard"}
-              onClick={() => setCurrentView("dashboard")}
+              onClick={() => handleNavClick("dashboard")}
             >
               Dashboard
             </NavItem>
@@ -63,7 +106,7 @@ export const Portal = () => {
           <li>
             <NavItem
               active={currentView === "workout-logger"}
-              onClick={() => setCurrentView("workout-logger")}
+              onClick={() => handleNavClick("workout-logger")}
             >
               Log Activity
             </NavItem>
@@ -71,7 +114,7 @@ export const Portal = () => {
           <li>
             <NavItem
               active={currentView === "workout-manager"}
-              onClick={() => setCurrentView("workout-manager")}
+              onClick={() => handleNavClick("workout-manager")}
             >
               Manage Activities
             </NavItem>
@@ -79,7 +122,7 @@ export const Portal = () => {
           <li>
             <NavItem
               active={currentView === "stats-logger"}
-              onClick={() => setCurrentView("stats-logger")}
+              onClick={() => handleNavClick("stats-logger")}
             >
               Daily Stats
             </NavItem>
@@ -88,7 +131,7 @@ export const Portal = () => {
             <NavItem
               active={false}
               onClick={handleSignOut}
-              style={{ marginLeft: "auto" }}
+              className="sign-out-button"
             >
               Sign Out
             </NavItem>
