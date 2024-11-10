@@ -65,7 +65,7 @@ export const Portal = () => {
               active={currentView === "workout-logger"}
               onClick={() => setCurrentView("workout-logger")}
             >
-              Log Workout
+              Log Activity
             </NavItem>
           </li>
           <li>
@@ -73,7 +73,7 @@ export const Portal = () => {
               active={currentView === "workout-manager"}
               onClick={() => setCurrentView("workout-manager")}
             >
-              Manage Workouts
+              Manage Activities
             </NavItem>
           </li>
           <li>
