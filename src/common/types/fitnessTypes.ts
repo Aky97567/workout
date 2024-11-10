@@ -75,3 +75,18 @@ export interface User {
   email: string;
   monthlyStepGoal: number;
 }
+
+export interface UserStats {
+  userId: string;
+  email: string;
+  name: string;
+  totalPoints: number;
+  stepPoints: number;
+  workoutPoints: number;
+  habitPoints: number;
+  streakPoints: number;
+  workouts: number;
+  steps: number;
+  habits: number;
+  streak: number;
+}

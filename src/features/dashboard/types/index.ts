@@ -1,5 +1,8 @@
 // src/features/dashboard/types/index.ts
 
+import { UserStats } from "../../../common";
+import { calculateTotalStats } from "../../../shared";
+
 export interface User {
   id: string;
   email: string;
@@ -21,22 +24,6 @@ export interface DailyStats {
 export interface WorkoutLog {
   date: { toDate: () => Date };
   points: number;
-}
-
-// Your existing types
-export interface UserStats {
-  userId: string;
-  email: string;
-  name: string;
-  totalPoints: number;
-  stepPoints: number;
-  workoutPoints: number;
-  habitPoints: number;
-  streakPoints: number;
-  workouts: number;
-  steps: number;
-  habits: number;
-  streak: number;
 }
 
 export interface MonthlyStats {
@@ -62,7 +49,17 @@ export interface MonthlyStats {
 
 export interface DashboardData {
   userStats: UserStats[];
-  monthlyStats: MonthlyStats;
+  monthlyStats: {
+    dailyPoints: {
+      date: string;
+      points: number;
+      stepPoints: number;
+      workoutPoints: number;
+      habitPoints: number;
+      userId: string;
+    }[];
+    totalStats: ReturnType<typeof calculateTotalStats>;
+  };
   userDailyPoints: {
     [userId: string]: {
       date: string;
@@ -70,6 +67,7 @@ export interface DashboardData {
       stepPoints: number;
       workoutPoints: number;
       habitPoints: number;
+      userId: string;
     }[];
   };
 }

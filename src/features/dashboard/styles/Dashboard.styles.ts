@@ -1,109 +1,48 @@
-// src/features/dashboard/styles/Dashboard.styles.ts
+// src/features/dashboard/ui/styles.ts
 import styled from "@emotion/styled";
 
 export const DashboardContainer = styled.div`
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  @media (max-width: 500px) {
+    padding: 0.5rem;
+  }
 `;
 
 export const Header = styled.header`
-  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 `;
 
 export const DatePickerWrapper = styled.div`
   position: relative;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const MonthPickerButton = styled.button`
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   background: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    text-align: left;
+  }
 
   &:hover {
     background: #f5f5f5;
   }
-`;
-
-export const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-`;
-
-export const StatsCard = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-export const StatsCardTitle = styled.h3`
-  margin: 0 0 1rem 0;
-  font-size: 1.1rem;
-  color: #333;
-`;
-
-export const ChartContainer = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-  height: 400px;
-`;
-
-export const LeaderboardContainer = styled.div`
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-export const LeaderboardTitle = styled.h2`
-  margin: 0 0 1.5rem 0;
-  font-size: 1.5rem;
-  color: #333;
-`;
-
-export const LeaderboardItem = styled.div<{ isCurrentUser: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background: ${(props) => (props.isCurrentUser ? "#e8f5e9" : "transparent")};
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-export const UserInfo = styled.div`
-  flex: 1;
-`;
-
-export const UserName = styled.div`
-  font-weight: bold;
-  color: #333;
-`;
-
-export const UserStats = styled.div`
-  color: #666;
-  font-size: 0.9rem;
-`;
-
-export const Points = styled.div`
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #4caf50;
 `;
 
 export const MonthPickerContainer = styled.div<{ isOpen: boolean }>`
@@ -116,41 +55,58 @@ export const MonthPickerContainer = styled.div<{ isOpen: boolean }>`
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  min-width: 200px;
   padding: 1rem;
+
+  @media (max-width: 500px) {
+    right: 0;
+    left: 0;
+  }
 `;
 
-export const NoDataMessage = styled.div`
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-  font-style: italic;
-`;
-
-export const LoadingSpinner = styled.div`
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-`;
-
-export const TabContainer = styled.div`
-  margin-bottom: 2rem;
-`;
-
-export const TabList = styled.div`
+export const MonthPickerContent = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
 `;
 
-export const Tab = styled.button<{ active: boolean }>`
+export const SelectContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const StyledSelect = styled.select`
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+`;
+
+export const ViewMonthButton = styled.button`
+  width: 100%;
   padding: 0.5rem 1rem;
+  color: white;
+  background-color: #4caf50;
   border: none;
-  background: ${(props) => (props.active ? "#4caf50" : "#f5f5f5")};
-  color: ${(props) => (props.active ? "white" : "#333")};
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
 
   &:hover {
-    background: ${(props) => (props.active ? "#45a049" : "#e0e0e0")};
+    background-color: #45a049;
   }
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #666;
+  gap: 0.5rem;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #e53e3e;
+  text-align: center;
+  padding: 2rem;
 `;
