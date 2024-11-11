@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { format } from "date-fns";
+import { endOfWeek, format, startOfWeek } from "date-fns";
 import type { WeeklyChartProps } from "../../common";
 import {
   ChartSection,
@@ -28,8 +28,9 @@ export const WeeklyStepsChart = ({
   <ChartSection>
     <ChartHeader>
       <ChartTitle>
-        Weekly Steps - {format(selectedWeek, "MMM d")} to{" "}
-        {format(selectedWeek, "MMM d, yyyy")}
+        Weekly Steps -{" "}
+        {format(startOfWeek(selectedWeek, { weekStartsOn: 0 }), "MMM d")} to{" "}
+        {format(endOfWeek(selectedWeek, { weekStartsOn: 0 }), "MMM d, yyyy")}
       </ChartTitle>
       <WeekNavigation>
         <WeekNavigationButton onClick={onPreviousWeek}>
