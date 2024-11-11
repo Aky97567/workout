@@ -5,4 +5,4 @@ export {
   calculateTotalStats,
 } from "./utils";
 export { useWindowHeight } from "./hooks";
-export { COLOR_PRIMARY, mediaQuery } from "./theme";
+export { COLOR_PRIMARY, generateColor, mediaQuery } from "./theme";
