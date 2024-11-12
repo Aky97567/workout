@@ -11,12 +11,14 @@ interface LeaderboardProps {
 export const Leaderboard = ({ userStats, currentUserId }: LeaderboardProps) => (
   <LeaderboardSection>
     <LeaderboardTitle>Monthly Leaderboard</LeaderboardTitle>
-    {userStats.map((stats) => (
-      <LeaderboardItem
-        key={stats.userId}
-        userStats={stats}
-        isCurrentUser={stats.userId === currentUserId}
-      />
-    ))}
+    {userStats
+      .sort((a, b) => b.totalPoints - a.totalPoints)
+      .map((stats) => (
+        <LeaderboardItem
+          key={stats.userId}
+          userStats={stats}
+          isCurrentUser={stats.userId === currentUserId}
+        />
+      ))}
   </LeaderboardSection>
 );
