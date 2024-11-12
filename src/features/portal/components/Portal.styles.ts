@@ -14,7 +14,7 @@ export const Nav = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100%-1rem);
+  width: calc(100% - 1rem);
   z-index: 999;
 
   @media (max-width: 768px) {
