@@ -1,21 +1,25 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Login, useAuth } from "../../auth";
-import { WorkoutLogger } from "../../workout-logger";
+import { Dashboard, useUsers } from "../../dashboard";
 import { DailyStatsLogger } from "../../stats-logger";
-import { Dashboard } from "../../dashboard";
+import { UserMenu } from "../../../widgets";
+import { WorkoutLogger } from "../../workout-logger";
 import { WorkoutManager } from "../../workout-manager";
 import { WorkoutPlan } from "../../workout-plan";
 import {
   PortalContainer,
   Nav,
   NavList,
+  NavListItem,
   NavItem,
   Content,
   MobileMenuButton,
   MobileOverlay,
   MobileNavHeader,
+  NavUserInfo,
 } from "./Portal.styles";
+import { useIsMobileDevice } from "../../../shared";
 
 type View =
   | "workout-plan"
@@ -28,10 +32,15 @@ export const Portal = () => {
   const [currentView, setCurrentView] = useState<View>("dashboard");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentUser, signOut } = useAuth();
+  const { users } = useUsers();
+  const isMobile = useIsMobileDevice();
 
   if (!currentUser) {
     return <Login />;
   }
+
+  const currentUserData = users.find((user) => user.id === currentUser.uid);
+  const userName = currentUserData?.name || "User";
 
   const renderView = () => {
     switch (currentView) {
@@ -86,55 +95,68 @@ export const Portal = () => {
             />
             Menu
           </MobileNavHeader>
-          <li>
+          <NavUserInfo>
+            <div className="name">{userName}</div>
+            <div className="email">{currentUser.email}</div>
+          </NavUserInfo>
+          <NavListItem>
             <NavItem
               active={currentView === "workout-plan"}
               onClick={() => handleNavClick("workout-plan")}
             >
               Workout Plan
             </NavItem>
-          </li>
-          <li>
+          </NavListItem>
+          <NavListItem>
             <NavItem
               active={currentView === "dashboard"}
               onClick={() => handleNavClick("dashboard")}
             >
               Dashboard
             </NavItem>
-          </li>
-          <li>
+          </NavListItem>
+          <NavListItem>
             <NavItem
               active={currentView === "workout-logger"}
               onClick={() => handleNavClick("workout-logger")}
             >
               Log Activity
             </NavItem>
-          </li>
-          <li>
+          </NavListItem>
+          <NavListItem>
             <NavItem
               active={currentView === "workout-manager"}
               onClick={() => handleNavClick("workout-manager")}
             >
               Manage Activities
             </NavItem>
-          </li>
-          <li>
+          </NavListItem>
+          <NavListItem>
             <NavItem
               active={currentView === "stats-logger"}
               onClick={() => handleNavClick("stats-logger")}
             >
               Daily Stats
             </NavItem>
-          </li>
-          <li>
-            <NavItem
-              active={false}
-              onClick={handleSignOut}
-              className="sign-out-button"
-            >
-              Sign Out
-            </NavItem>
-          </li>
+          </NavListItem>
+          {isMobile && (
+            <NavListItem>
+              <NavItem
+                active={false}
+                onClick={handleSignOut}
+                className="sign-out-button"
+              >
+                Sign Out
+              </NavItem>
+            </NavListItem>
+          )}
+          <NavListItem>
+            <UserMenu
+              name={userName}
+              email={currentUser.email || ""}
+              onSignOut={handleSignOut}
+            />
+          </NavListItem>
         </NavList>
       </Nav>
       <Content>{renderView()}</Content>

@@ -4,5 +4,5 @@ export {
   calculateUserStats,
   calculateTotalStats,
 } from "./utils";
-export { useWindowHeight } from "./hooks";
+export { useIsMobileDevice, useWindowHeight } from "./hooks";
 export { COLOR_PRIMARY, generateColor, mediaQuery } from "./theme";

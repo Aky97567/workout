@@ -10,14 +10,15 @@ export const PortalContainer = styled.div`
 
 export const Nav = styled.nav`
   background-color: #1a1a1a;
-  padding: 1rem;
+  padding: 0.5rem;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100%-1rem);
   z-index: 999;
 
   @media (max-width: 768px) {
+    padding: 1rem;
     height: 3.5rem;
     display: flex;
     align-items: center;
@@ -45,10 +46,11 @@ export const NavList = styled.ul<{ $isOpen: boolean }>`
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   justify-content: center;
 
   @media (max-width: 768px) {
+    gap: 1rem;
     position: fixed;
     top: 0;
     left: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};
@@ -84,6 +86,11 @@ export const NavList = styled.ul<{ $isOpen: boolean }>`
       margin-left: 0;
     }
   }
+`;
+
+export const NavListItem = styled.li`
+  display: flex;
+  align-items: center;
 `;
 
 export const MobileNavHeader = styled.div`
@@ -159,4 +166,25 @@ export const Content = styled.main`
   flex: 1;
   padding: 1rem;
   margin-top: 3.5rem; // Height of nav bar
+`;
+
+export const NavUserInfo = styled.div`
+  padding: 1rem;
+  border-bottom: 1px solid #333;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  .name {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.25rem;
+  }
+
+  .email {
+    font-size: 0.875rem;
+    color: #999;
+  }
 `;
