@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Login } from "../../auth";
+import { Login, useAuth } from "../../auth";
 import { WorkoutLogger } from "../../workout-logger";
 import { DailyStatsLogger } from "../../stats-logger";
 import { Dashboard } from "../../dashboard";
-import { useAuth } from "../../auth";
 import { WorkoutManager } from "../../workout-manager";
 import { WorkoutPlan } from "../../workout-plan";
 import {

@@ -1,2 +1,2 @@
 export { Portal } from "./portal";
-export { AuthProvider } from "./auth";
+export { AuthProvider, Login } from "./auth";
