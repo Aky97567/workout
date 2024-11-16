@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Loader2Icon } from "lucide-react";
 import { getAuth } from "firebase/auth";
 import { Leaderboard } from "../../../entities";
-import { PointsChart, WeeklyStepsChart } from "../../../widgets";
+import { MonthlyWinner, PointsChart, WeeklyStepsChart } from "../../../widgets";
 import { useDashboardStats, useWeeklySteps } from "../hooks";
 import type { ChartData, ChartTab } from "../../../widgets";
 import {
@@ -195,6 +195,33 @@ export const Dashboard = () => {
 
       {currentUserId && dashboardData.userStats && (
         <>
+          <MonthlyWinner
+            monthData={{
+              month: format(selectedDate, "yyyy-MM"),
+              metrics: {
+                users: Object.fromEntries(
+                  dashboardData.userStats.map((user) => [
+                    user.userId,
+                    { totalPoints: user.totalPoints },
+                  ])
+                ),
+              },
+            }}
+            currentUser={{
+              uid: currentUserId,
+              name:
+                dashboardData.userStats.find((u) => u.userId === currentUserId)
+                  ?.name || "",
+            }}
+            competitorUser={{
+              uid:
+                dashboardData.userStats.find((u) => u.userId !== currentUserId)
+                  ?.userId || "",
+              name:
+                dashboardData.userStats.find((u) => u.userId !== currentUserId)
+                  ?.name || "",
+            }}
+          />
           <Leaderboard
             userStats={dashboardData.userStats}
             currentUserId={currentUserId}
