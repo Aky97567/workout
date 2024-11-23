@@ -17,6 +17,7 @@ import trophyImage2 from "./assets/winner-gold.png";
 import trophyImage3 from "./assets/award-winner.png";
 import trophyImage4 from "./assets/gold-winner-trophy-icon.webp";
 import trophyImage5 from "./assets/winner-yellow.png";
+import { useEffect, useState } from "react";
 
 export const MonthlyWinner = ({
   monthData,
@@ -26,7 +27,11 @@ export const MonthlyWinner = ({
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
   const currentYear = today.getFullYear();
-  const mod = currentMonth % 6;
+  const [mod, setMod] = useState(currentMonth % 6);
+
+  useEffect(() => {
+    setMod(currentMonth % 6);
+  }, [currentMonth]);
 
   const isMonthInPast = (monthStr: string) => {
     const [year, month] = monthStr.split("-").map((num) => parseInt(num));
