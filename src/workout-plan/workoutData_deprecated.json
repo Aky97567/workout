@@ -1,54 +1,5 @@
 {
   "weekly_workout_plan": {
-    "Sunday": {
-      "day_number": 7,
-      "muscle_groups": ["Full Body (Moderate)"],
-      "exercises": [
-        {
-          "name": "Deadlifts (Lighter weight)",
-          "sets": 3,
-          "reps": "8-10",
-          "rest": "90 seconds",
-          "imageKey": "deadlifts",
-          "notes": "Use lighter weight than before"
-        },
-        {
-          "name": "Push-ups",
-          "sets": 2,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "imageKey": "pushups"
-        },
-        {
-          "name": "Pull-ups or Assisted Pull-ups",
-          "sets": 2,
-          "reps": "6-8",
-          "rest": "90 seconds",
-          "imageKey": "pullups"
-        },
-        {
-          "name": "Tricep Dips",
-          "sets": 2,
-          "reps": "8-10",
-          "rest": "60 seconds",
-          "imageKey": "benchDips"
-        },
-        {
-          "name": "Hammer Curls (Dumbbell)",
-          "sets": 2,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "imageKey": "hammerCurl"
-        },
-        {
-          "name": "Calf Raises (Dumbbell)",
-          "sets": 2,
-          "reps": "12-15",
-          "rest": "60 seconds",
-          "imageKey": "calfRaise"
-        }
-      ]
-    },
     "Monday": {
       "day_number": 1,
       "muscle_groups": ["Light Cardio"],
@@ -155,6 +106,55 @@
         {
           "name": "Yoga practice",
           "duration": "Your regular yoga session"
+        }
+      ]
+    },
+    "Sunday": {
+      "day_number": 7,
+      "muscle_groups": ["Full Body (Moderate)"],
+      "exercises": [
+        {
+          "name": "Deadlifts (Lighter weight)",
+          "sets": 3,
+          "reps": "8-10",
+          "rest": "90 seconds",
+          "imageKey": "deadlifts",
+          "notes": "Use lighter weight than before"
+        },
+        {
+          "name": "Push-ups",
+          "sets": 2,
+          "reps": "10-12",
+          "rest": "60 seconds",
+          "imageKey": "pushups"
+        },
+        {
+          "name": "Pull-ups or Assisted Pull-ups",
+          "sets": 2,
+          "reps": "6-8",
+          "rest": "90 seconds",
+          "imageKey": "pullups"
+        },
+        {
+          "name": "Tricep Dips",
+          "sets": 2,
+          "reps": "8-10",
+          "rest": "60 seconds",
+          "imageKey": "benchDips"
+        },
+        {
+          "name": "Hammer Curls (Dumbbell)",
+          "sets": 2,
+          "reps": "10-12",
+          "rest": "60 seconds",
+          "imageKey": "hammerCurl"
+        },
+        {
+          "name": "Calf Raises (Dumbbell)",
+          "sets": 2,
+          "reps": "12-15",
+          "rest": "60 seconds",
+          "imageKey": "calfRaise"
         }
       ]
     }
