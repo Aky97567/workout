@@ -18,6 +18,7 @@ import overheadPress from "../../assets/overheadPress.png";
 import rdl from "../../assets/rdl.png";
 import singleArmDumbellRow from "../../assets/singleArmDumbellRow.png";
 import squats from "../../assets/squats.png";
+import sumoDeadlifts from "../../assets/sumo-deadlifts.png";
 import tricepExtensions from "../../assets/tricep-extensions.png";
 import tricepKickback from "../../assets/tricep-kickback.png";
 
@@ -42,6 +43,7 @@ export const exerciseImages: { [key: string]: string } = {
   rdl: rdl,
   singleArmDumbellRow: singleArmDumbellRow,
   squats: squats,
+  sumoDeadlifts: sumoDeadlifts,
   tricepExtensions: tricepExtensions,
   tricepKickback: tricepKickback,
 };

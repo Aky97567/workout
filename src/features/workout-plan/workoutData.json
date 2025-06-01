@@ -1,114 +1,103 @@
 {
   "weekly_workout_plan": {
     "Sunday": {
-      "day_number": 0,
+      "day_number": 1,
       "muscle_groups": ["Full Body Maintenance"],
       "exercises": [
         {
-          "name": "Incline Bench Press with barbell",
+          "name": "Incline Bench Press",
           "sets": 3,
           "reps": "8-10",
           "rest": "90 seconds",
-          "imageKey": "TODO",
-          "notes": "Light weight, focus on form"
+          "imageKey": "benchPressImage"
         },
         {
-          "name": "Bent-over Rows with barbell",
+          "name": "Bent-over Rows",
           "sets": 3,
           "reps": "8-10",
           "rest": "90 seconds",
-          "imageKey": "TODO",
-          "notes": "Keep back straight"
+          "imageKey": "bentOverRows"
         },
         {
-          "name": "Romanian Deadlifts with barbell",
+          "name": "Romanian Deadlifts",
           "sets": 2,
           "reps": "10-12",
           "rest": "60 seconds",
           "weight": "15-17.5kg",
-          "imageKey": "deadlifts",
-          "notes": "Lighter than Monday, maintenance work"
+          "imageKey": "deadlifts"
         },
         {
-          "name": "Glute Bridges",
+          "name": "Sumo Deadlifts",
           "sets": 2,
           "reps": "12-15",
           "rest": "60 seconds",
-          "imageKey": "TODO"
+          "imageKey": "sumoDeadlifts"
         }
       ]
     },
     "Monday": {
-      "day_number": 1,
+      "day_number": 2,
       "muscle_groups": ["Posterior Chain Focus"],
       "exercises": [
         {
-          "name": "Romanian Deadlifts with barbell",
+          "name": "Romanian Deadlifts",
           "sets": 3,
           "reps": "12-15",
           "rest": "90 seconds",
           "weight": "17.5kg",
-          "imageKey": "deadlifts",
-          "notes": "Focus on hamstring stretch, bar close to legs"
+          "imageKey": "deadlifts"
         },
         {
           "name": "Calf Raises with dumbbells",
           "sets": 3,
           "reps": "12-15",
           "rest": "60 seconds",
-          "imageKey": "calfRaise",
-          "notes": "Superset with RDLs to save time"
+          "imageKey": "calfRaise"
         },
         {
-          "name": "Glute Bridges",
+          "name": "Sumo Deadlifts",
           "sets": 3,
           "reps": "12-15",
           "rest": "90 seconds",
-          "imageKey": "TODO",
-          "notes": "Squeeze glutes at top"
+          "imageKey": "sumoDeadlifts"
         },
         {
-          "name": "V-ups",
+          "name": "V-ups / Hanging leg raises",
           "sets": 3,
           "reps": "10-12",
           "rest": "60 seconds",
-          "imageKey": "TODO",
-          "notes": "Superset with Glute Bridges to save time"
+          "imageKey": "TODO"
         }
       ]
     },
     "Tuesday": {
-      "day_number": 2,
+      "day_number": 3,
       "muscle_groups": ["Upper Body"],
       "exercises": [
         {
-          "name": "Pull-ups on pull-up bar",
+          "name": "Pull-ups",
           "sets": 3,
           "reps": "6-8",
-          "rest": "90 seconds",
-          "imageKey": "pullups",
-          "notes": "Skip for 2 days until shoulder heals"
+          "rest": "90 seconds"
         },
         {
-          "name": "Incline Push-ups on inclined bench",
+          "name": "Inclined bench press / decline pushups",
           "sets": 3,
           "reps": "8-12",
           "rest": "60 seconds",
-          "imageKey": "pushups",
-          "notes": "Skip for 2 days until shoulder heals"
+          "imageKey": "benchPress"
         },
         {
           "name": "Hammer Curls with dumbbells",
           "sets": 2,
           "reps": "10-12",
           "rest": "60 seconds",
-          "imageKey": "hammerCurl",
-          "notes": "Skip for 2 days until shoulder heals"
+          "imageKey": "hammerCurl"
         }
       ]
     },
     "Wednesday": {
-      "day_number": 3,
+      "day_number": 4,
       "muscle_groups": ["Rest"],
       "exercises": [
         {
@@ -117,34 +106,26 @@
       ]
     },
     "Thursday": {
-      "day_number": 4,
+      "day_number": 5,
       "muscle_groups": ["Light Movement"],
       "exercises": [
         {
           "name": "Easy cycling on stepper",
           "duration": "15-20 minutes",
           "intensity": "No resistance, flat/easy pace",
-          "imageKey": "TODO",
-          "notes": "Stop if knee feels uncomfortable"
+          "imageKey": "TODO"
         },
         {
-          "name": "V-ups",
+          "name": "V-ups / Hanging leg raises",
           "sets": 2,
           "reps": "8-10",
           "rest": "60 seconds",
           "imageKey": "TODO"
-        },
-        {
-          "name": "Calf Raises (bodyweight)",
-          "sets": 2,
-          "reps": "15-20",
-          "rest": "60 seconds",
-          "imageKey": "calfRaise"
         }
       ]
     },
     "Friday": {
-      "day_number": 5,
+      "day_number": 6,
       "muscle_groups": ["Rest"],
       "exercises": [
         {
@@ -153,7 +134,7 @@
       ]
     },
     "Saturday": {
-      "day_number": 6,
+      "day_number": 7,
       "muscle_groups": ["Yoga Day"],
       "exercises": [
         {
