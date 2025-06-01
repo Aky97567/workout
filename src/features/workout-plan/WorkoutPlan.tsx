@@ -111,9 +111,16 @@ export const WorkoutPlan: React.FC = () => {
                 {exercise.duration && <p>Duration: {exercise.duration}</p>}
                 {visibleImages[index] &&
                   exercise.imageKey &&
-                  exerciseImages[exercise.imageKey] && (
+                  (exerciseImages[exercise.imageKey] ||
+                    exercise.imageKey === "TODO") && (
                     <Image
-                      src={exerciseImages[exercise.imageKey]}
+                      src={
+                        exerciseImages[
+                          !exerciseImages[exercise.imageKey]
+                            ? "bicepCurl"
+                            : exercise.imageKey
+                        ]
+                      }
                       alt={exercise.name}
                     />
                   )}

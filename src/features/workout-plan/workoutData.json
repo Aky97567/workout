@@ -1,100 +1,71 @@
 {
   "weekly_workout_plan": {
-    "Sunday": {
-      "day_number": 7,
-      "muscle_groups": ["Full Body (Moderate)"],
-      "exercises": [
-        {
-          "name": "Deadlifts (Lighter weight)",
-          "sets": 3,
-          "reps": "8-10",
-          "rest": "90 seconds",
-          "imageKey": "deadlifts",
-          "notes": "Use lighter weight than before"
-        },
-        {
-          "name": "Push-ups",
-          "sets": 2,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "imageKey": "pushups"
-        },
-        {
-          "name": "Pull-ups or Assisted Pull-ups",
-          "sets": 2,
-          "reps": "6-8",
-          "rest": "90 seconds",
-          "imageKey": "pullups"
-        },
-        {
-          "name": "Tricep Dips",
-          "sets": 2,
-          "reps": "8-10",
-          "rest": "60 seconds",
-          "imageKey": "benchDips"
-        },
-        {
-          "name": "Hammer Curls (Dumbbell)",
-          "sets": 2,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "imageKey": "hammerCurl"
-        },
-        {
-          "name": "Calf Raises (Dumbbell)",
-          "sets": 2,
-          "reps": "12-15",
-          "rest": "60 seconds",
-          "imageKey": "calfRaise"
-        }
-      ]
-    },
     "Monday": {
       "day_number": 1,
-      "muscle_groups": ["Light Cardio"],
+      "muscle_groups": ["Posterior Chain Focus"],
       "exercises": [
         {
-          "name": "Running",
-          "duration": "20-30 minutes",
-          "intensity": "Moderate pace"
+          "name": "Romanian Deadlifts with barbell",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "90 seconds",
+          "weight": "17.5kg",
+          "imageKey": "deadlifts",
+          "notes": "Focus on hamstring stretch, bar close to legs"
         },
         {
-          "name": "Light stretching",
-          "duration": "10 minutes"
+          "name": "Calf Raises with dumbbells",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds",
+          "imageKey": "calfRaise",
+          "notes": "Superset with RDLs to save time"
+        },
+        {
+          "name": "Glute Bridges",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "90 seconds",
+          "imageKey": "TODO",
+          "notes": "Squeeze glutes at top"
+        },
+        {
+          "name": "V-ups",
+          "sets": 3,
+          "reps": "10-12",
+          "rest": "60 seconds",
+          "imageKey": "TODO",
+          "notes": "Superset with Glute Bridges to save time"
         }
       ]
     },
     "Tuesday": {
       "day_number": 2,
-      "muscle_groups": ["Upper Body (Lighter)"],
+      "muscle_groups": ["Upper Body"],
       "exercises": [
         {
-          "name": "Push-ups",
+          "name": "Pull-ups on pull-up bar",
           "sets": 3,
-          "reps": "8-10",
-          "rest": "60 seconds",
-          "imageKey": "pushups"
-        },
-        {
-          "name": "Tricep Dips",
-          "sets": 2,
-          "reps": "8-10",
-          "rest": "60-90 seconds",
-          "imageKey": "benchDips"
-        },
-        {
-          "name": "Pull-ups or Assisted Pull-ups",
-          "sets": 2,
           "reps": "6-8",
           "rest": "90 seconds",
-          "imageKey": "pullups"
+          "imageKey": "pullups",
+          "notes": "Skip for 2 days until shoulder heals"
         },
         {
-          "name": "Hammer Curls (Dumbbell)",
+          "name": "Incline Push-ups on inclined bench",
+          "sets": 3,
+          "reps": "8-12",
+          "rest": "60 seconds",
+          "imageKey": "pushups",
+          "notes": "Skip for 2 days until shoulder heals"
+        },
+        {
+          "name": "Hammer Curls with dumbbells",
           "sets": 2,
           "reps": "10-12",
           "rest": "60 seconds",
-          "imageKey": "hammerCurl"
+          "imageKey": "hammerCurl",
+          "notes": "Skip for 2 days until shoulder heals"
         }
       ]
     },
@@ -103,39 +74,34 @@
       "muscle_groups": ["Rest"],
       "exercises": [
         {
-          "name": "Complete rest day for full recovery"
+          "name": "Complete rest day for recovery"
         }
       ]
     },
     "Thursday": {
       "day_number": 4,
-      "muscle_groups": ["Lower Body (Light)"],
+      "muscle_groups": ["Light Movement"],
       "exercises": [
         {
-          "name": "Bodyweight Squats",
-          "sets": 3,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "imageKey": "bodyweightSquats"
+          "name": "Easy cycling on stepper",
+          "duration": "15-20 minutes",
+          "intensity": "No resistance, flat/easy pace",
+          "imageKey": "TODO",
+          "notes": "Stop if knee feels uncomfortable"
         },
         {
-          "name": "Walking Lunges",
+          "name": "V-ups",
           "sets": 2,
-          "reps": "8-10 per leg",
+          "reps": "8-10",
           "rest": "60 seconds",
-          "imageKey": "walkingLunges"
+          "imageKey": "TODO"
         },
         {
-          "name": "Calf Raises (Bodyweight)",
+          "name": "Calf Raises (bodyweight)",
           "sets": 2,
-          "reps": "12-15",
+          "reps": "15-20",
           "rest": "60 seconds",
           "imageKey": "calfRaise"
-        },
-        {
-          "name": "Running",
-          "duration": "15-20 minutes",
-          "intensity": "Light to moderate pace"
         }
       ]
     },
@@ -155,6 +121,44 @@
         {
           "name": "Yoga practice",
           "duration": "Your regular yoga session"
+        }
+      ]
+    },
+    "Sunday": {
+      "day_number": 7,
+      "muscle_groups": ["Full Body Maintenance"],
+      "exercises": [
+        {
+          "name": "Incline Bench Press with barbell",
+          "sets": 3,
+          "reps": "8-10",
+          "rest": "90 seconds",
+          "imageKey": "TODO",
+          "notes": "Light weight, focus on form"
+        },
+        {
+          "name": "Bent-over Rows with barbell",
+          "sets": 3,
+          "reps": "8-10",
+          "rest": "90 seconds",
+          "imageKey": "TODO",
+          "notes": "Keep back straight"
+        },
+        {
+          "name": "Romanian Deadlifts with barbell",
+          "sets": 2,
+          "reps": "10-12",
+          "rest": "60 seconds",
+          "weight": "15-17.5kg",
+          "imageKey": "deadlifts",
+          "notes": "Lighter than Monday, maintenance work"
+        },
+        {
+          "name": "Glute Bridges",
+          "sets": 2,
+          "reps": "12-15",
+          "rest": "60 seconds",
+          "imageKey": "TODO"
         }
       ]
     }
