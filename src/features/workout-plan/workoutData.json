@@ -1,5 +1,43 @@
 {
   "weekly_workout_plan": {
+    "Sunday": {
+      "day_number": 0,
+      "muscle_groups": ["Full Body Maintenance"],
+      "exercises": [
+        {
+          "name": "Incline Bench Press with barbell",
+          "sets": 3,
+          "reps": "8-10",
+          "rest": "90 seconds",
+          "imageKey": "TODO",
+          "notes": "Light weight, focus on form"
+        },
+        {
+          "name": "Bent-over Rows with barbell",
+          "sets": 3,
+          "reps": "8-10",
+          "rest": "90 seconds",
+          "imageKey": "TODO",
+          "notes": "Keep back straight"
+        },
+        {
+          "name": "Romanian Deadlifts with barbell",
+          "sets": 2,
+          "reps": "10-12",
+          "rest": "60 seconds",
+          "weight": "15-17.5kg",
+          "imageKey": "deadlifts",
+          "notes": "Lighter than Monday, maintenance work"
+        },
+        {
+          "name": "Glute Bridges",
+          "sets": 2,
+          "reps": "12-15",
+          "rest": "60 seconds",
+          "imageKey": "TODO"
+        }
+      ]
+    },
     "Monday": {
       "day_number": 1,
       "muscle_groups": ["Posterior Chain Focus"],
@@ -121,44 +159,6 @@
         {
           "name": "Yoga practice",
           "duration": "Your regular yoga session"
-        }
-      ]
-    },
-    "Sunday": {
-      "day_number": 7,
-      "muscle_groups": ["Full Body Maintenance"],
-      "exercises": [
-        {
-          "name": "Incline Bench Press with barbell",
-          "sets": 3,
-          "reps": "8-10",
-          "rest": "90 seconds",
-          "imageKey": "TODO",
-          "notes": "Light weight, focus on form"
-        },
-        {
-          "name": "Bent-over Rows with barbell",
-          "sets": 3,
-          "reps": "8-10",
-          "rest": "90 seconds",
-          "imageKey": "TODO",
-          "notes": "Keep back straight"
-        },
-        {
-          "name": "Romanian Deadlifts with barbell",
-          "sets": 2,
-          "reps": "10-12",
-          "rest": "60 seconds",
-          "weight": "15-17.5kg",
-          "imageKey": "deadlifts",
-          "notes": "Lighter than Monday, maintenance work"
-        },
-        {
-          "name": "Glute Bridges",
-          "sets": 2,
-          "reps": "12-15",
-          "rest": "60 seconds",
-          "imageKey": "TODO"
         }
       ]
     }
