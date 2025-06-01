@@ -40,26 +40,11 @@
       "muscle_groups": ["Posterior Chain Focus"],
       "exercises": [
         {
-          "name": "Romanian Deadlifts",
-          "sets": 3,
-          "reps": "12-15",
-          "rest": "90 seconds",
-          "weight": "17.5kg",
-          "imageKey": "deadlifts"
-        },
-        {
           "name": "Calf Raises with dumbbells",
           "sets": 3,
           "reps": "12-15",
           "rest": "60 seconds",
           "imageKey": "calfRaise"
-        },
-        {
-          "name": "Sumo Deadlifts",
-          "sets": 3,
-          "reps": "12-15",
-          "rest": "90 seconds",
-          "imageKey": "sumoDeadlifts"
         },
         {
           "name": "V-ups / Hanging leg raises",
@@ -79,13 +64,6 @@
           "sets": 3,
           "reps": "6-8",
           "rest": "90 seconds"
-        },
-        {
-          "name": "Inclined bench press / decline pushups",
-          "sets": 3,
-          "reps": "8-12",
-          "rest": "60 seconds",
-          "imageKey": "benchPress"
         },
         {
           "name": "Hammer Curls with dumbbells",
@@ -110,10 +88,11 @@
       "muscle_groups": ["Light Movement"],
       "exercises": [
         {
-          "name": "Easy cycling on stepper",
-          "duration": "15-20 minutes",
-          "intensity": "No resistance, flat/easy pace",
-          "imageKey": "TODO"
+          "name": "Inclined bench press / decline pushups",
+          "sets": 3,
+          "reps": "8-12",
+          "rest": "60 seconds",
+          "imageKey": "benchPress"
         },
         {
           "name": "V-ups / Hanging leg raises",
@@ -121,6 +100,13 @@
           "reps": "8-10",
           "rest": "60 seconds",
           "imageKey": "TODO"
+        },
+        {
+          "name": "Calf Raises with dumbbells",
+          "sets": 3,
+          "reps": "12-15",
+          "rest": "60 seconds",
+          "imageKey": "calfRaise"
         }
       ]
     },
